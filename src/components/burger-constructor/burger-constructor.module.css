@@ -26,4 +26,26 @@
   width: clamp(500px, 100%, 600px);
   height: 480px;
   overflow: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.section {
+  max-width: 600px
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderbox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.summ {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

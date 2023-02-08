@@ -1,12 +1,13 @@
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import data from '../../utils/data.js';
-import BurgerConstructorRow from './burger-constructor-row/burger-constructor-row.jsx';
+import BurgerConstructorItem from './burger-constructor-item/burger-constructor-item.jsx';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
+  const type = data.filter(obj => obj.type !== 'bun');
   return (
-    <section  style={{ maxWidth: 600 }}>
-      <div style={{ display: 'flex', flexDirection: 'column'}} className='mt-15 ml-4'>
+    <section className={styles.section}>
+      <div className={`mt-15 ml-4 ${styles.container}`}>
         <ConstructorElement
           extraClass="ml-8 mb-4"
           type="top"
@@ -15,10 +16,10 @@ function BurgerConstructor() {
           price={200}
           thumbnail={data[0].image}
         />
-        <ul style={{ padding: 0, margin: 0 }}className={styles.scroll}>
+        <ul className={styles.scroll}>
           {
-            data.filter(obj => obj.type !== 'bun').map(item => (
-              <BurgerConstructorRow key={item._id}  item={item} />
+            type.map(item => (
+              <BurgerConstructorItem key={item._id}  item={item} />
             ))
           }
         </ul>
@@ -31,8 +32,8 @@ function BurgerConstructor() {
           thumbnail={data[0].image}
         />
       </div>
-      <div style={{ display: 'flex', justifyContent: 'flex-end' }} className="mt-10">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }} className='mr-10'>
+      <div className={`mt-10 ${styles.orderbox}`}>
+        <div className={`mr-10 ${styles.summ}`}>
           <p className="text text_type_digits-medium">610</p>
           <CurrencyIcon type="primary" />
         </div>

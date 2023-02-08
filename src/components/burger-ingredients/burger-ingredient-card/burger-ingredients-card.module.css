@@ -1,0 +1,13 @@
+.li {
+  list-style-type: none;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  min-height: 48px;
+  max-width: 272px;
+}

@@ -2,13 +2,13 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
-import './App.css';
+import style from './App.module.css';
 
 function App() {
   return (
-    <div className="App">
+    <div className={style.app}>
       <AppHeader />
-      <main style={{ display: 'inline-flex', justifyContent: 'space-between', minWidth: 1240 }}>
+      <main className={style.main}>
         <BurgerIngredients />
         <BurgerConstructor />
       </main>

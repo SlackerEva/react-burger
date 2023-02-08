@@ -27,3 +27,15 @@
   height: 700px;
   overflow: auto;
 }
+
+.section {
+  max-width: 600px;
+}
+
+.title {
+  text-align: start;
+}
+
+.container {
+  display: inline-flex;
+}

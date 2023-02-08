@@ -1,0 +1,15 @@
+.link {
+  display: inline-flex;
+  flex-direction: row; 
+  align-items: center; 
+  text-decoration: none; 
+ 
+}
+
+.primary {
+  color: white;
+}
+
+.secondary {
+  color: #8585AD;
+}
