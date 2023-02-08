@@ -1,0 +1,29 @@
+:root {
+  --scrollbarBg: #2F2F37;
+  --scrollbarThumb: #8585AD;
+  --scrollbarWidth: 12px;
+  --scrollbarBorder: 3px solid var(--scrollbarBg);
+  --scrollbarBorderRadius: calc(var(--scrollbarWidth) / 2);
+}
+.scroll {
+  scrollbar-width: var(--scrollbarWidth);
+  scrollbar-color: var(--scrollbarThumb) var(--scrollbarBg);
+}
+.scroll::-webkit-scrollbar {
+  width: var(--scrollbarWidth);
+}
+.scroll::-webkit-scrollbar-track {
+  background: var(--scrollbarBg);
+  border-radius: var(--scrollbarBorderRadius);
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbarThumb);
+  border-radius: var(--scrollbarBorderRadius);
+  border: var(--scrollbarBorder);
+}
+
+.scroll {
+  width: clamp(600px, 100%, 600px);
+  height: 700px;
+  overflow: auto;
+}
