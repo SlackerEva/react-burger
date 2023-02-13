@@ -8,5 +8,5 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 1280;
+  min-width: 1280px;
 }

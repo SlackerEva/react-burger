@@ -7,7 +7,7 @@ function AppHeader() {
     <header className={`mr-10 ml-10 ${style.header}`}>
       <nav className={`pt-4 pb-4 mt-10 mb-10 ${style.nav}`}>
         <div>
-          <AppHeaderItem icon={<BurgerIcon type="primary" />} type="primary" title='Конструктор' />
+          <AppHeaderItem icon={<BurgerIcon type="primary" />} styleType="primary" title='Конструктор' />
           <AppHeaderItem className='ml-2' icon={<ListIcon type="secondary" />} title='Лента заказов' />
         </div>
         <Logo />

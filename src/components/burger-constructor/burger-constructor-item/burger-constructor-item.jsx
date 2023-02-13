@@ -17,9 +17,7 @@ function BurgerConstructorItem(props) {
 }
 
 BurgerConstructorItem.propTypes = {
-  name: dataPropTypes,
-  price: dataPropTypes,
-  image: dataPropTypes
+  item: dataPropTypes.isRequired
 }
 
 export default BurgerConstructorItem;
