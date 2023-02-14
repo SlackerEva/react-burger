@@ -3,18 +3,15 @@ import BurgerConstructorItem from './burger-constructor-item/burger-constructor-
 import styles from './burger-constructor.module.css';
 import { useState } from 'react';
 import Modal from '../modal/modal.jsx';
-import { createPortal } from 'react-dom';
 import OrderDetails from '../modal/order-details/order-details.jsx';
 import PropTypes from 'prop-types';
 import dataPropTypes from '../../utils/prop-types.js';
-const modalRoot = document.getElementById("react-modals");
 
 
 function BurgerConstructor(props) {
   const [isOpen, setIsOpen] = useState(false);
   const ingredients = props.ingredients?.filter(obj => obj.type !== 'bun') ?? [];
-  const bunImg = props.ingredients?.[0].image ?? '';
-
+  const bun = props.ingredients.find(obj => obj.type === 'bun');
   return (
     
     <section className={styles.section}>
@@ -23,24 +20,22 @@ function BurgerConstructor(props) {
           extraClass="ml-8 mb-4"
           type="top"
           isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={bunImg}
+          text={bun.name + " (верх)"}
+          price={bun.price}
+          thumbnail={bun.image}
         />
         <ul className={styles.scroll}>
-          {
-            ingredients.map(item => (
-              <BurgerConstructorItem key={item._id}  item={item} />
-            ))
-          }
+          {ingredients.map(item => (
+            <BurgerConstructorItem key={item._id}  item={item} />
+          ))}
         </ul>
         <ConstructorElement
           extraClass="ml-8"
           type="bottom"
           isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={200}
-          thumbnail={bunImg}
+          text={bun.name + " (низ)"}
+          price={bun.price}
+          thumbnail={bun.image}
         />
       </div>
       <div className={`mt-10 ${styles.orderbox}`}>
@@ -52,13 +47,17 @@ function BurgerConstructor(props) {
           Оформить заказ
         </Button>
       </div>
-      {isOpen && createPortal(<Modal onClose={() => setIsOpen(false)} children={<OrderDetails />} />, modalRoot)}
+      {isOpen && 
+        <Modal onClose={() => setIsOpen(false)}>
+          <OrderDetails />
+        </Modal>
+      }
     </section>
   )
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(dataPropTypes).isRequired
+  ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
 }
 
 

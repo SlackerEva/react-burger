@@ -1,12 +1,10 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import dataPropTypes from '../../../utils/prop-types.js';
-//import PropTypes from 'prop-types';
 import styles from './burger-ingredients-card.module.css';
 import Modal from '../../modal/modal.jsx';
 import { useState } from 'react';
-import { createPortal } from 'react-dom';
 import IngredientDetails from '../../modal/ingredient-details/ingredient-details.jsx';
-const modalRoot = document.getElementById("react-modals");
+
 
 function BurgerIngredientCard(props) {
   const { name, price, image } = props.card;
@@ -23,7 +21,11 @@ function BurgerIngredientCard(props) {
         </div>
         <p className={`text text_type_main-default ${styles.title}`}>{name}</p>
       </li>
-      {isOpen && createPortal(<Modal onClose={() => setIsOpen(false)} children={<IngredientDetails ingredient={{...props.card}}/>} />, modalRoot)}
+      {isOpen && 
+        <Modal onClose={() => setIsOpen(false)}>
+          <IngredientDetails ingredient={props.card}/>
+        </Modal>
+      }
     </>
   );
 }

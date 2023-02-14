@@ -24,7 +24,7 @@ BurgerIngredientCategory.propTypes = {
   item: PropTypes.shape({
     title: PropTypes.string.isRequired,
     type: PropTypes.oneOf(["bun", "main", "sauce"]).isRequired,
-    ingredients: PropTypes.arrayOf(dataPropTypes).isRequired
+    ingredients: PropTypes.arrayOf(dataPropTypes.isRequired).isRequired
   }),
 }
 

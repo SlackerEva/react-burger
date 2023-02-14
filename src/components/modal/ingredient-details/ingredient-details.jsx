@@ -1,4 +1,5 @@
 import styles from './ingredient-details.module.css';
+import dataPropTypes from '../../../utils/prop-types.js';
 
 function IngredientDetails(props) {
   const { name, image, calories, proteins, fat, carbohydrates } = props.ingredient;
@@ -27,7 +28,10 @@ function IngredientDetails(props) {
       </div>
     </>
   );
+}
 
+IngredientDetails.propTypes = {
+  ingredient: dataPropTypes.isRequired
 }
 
 export default IngredientDetails;
