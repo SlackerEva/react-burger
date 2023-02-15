@@ -11,8 +11,12 @@ function App() {
 
 
   useEffect(() => {
-    getIngredients(setIngredients);
-  }, [setIngredients]);
+    getIngredients()
+      .then((data) => {
+        setIngredients(data)
+      })
+      .catch('При загрузке произошла ошибка');
+  }, []);
 
 
   return (
