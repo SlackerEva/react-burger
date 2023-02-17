@@ -1,0 +1,10 @@
+.app {
+  text-align: center;
+
+}
+
+.main {
+  display: inline-flex;
+  justify-content: space-between;
+  min-width: 1240px; 
+}

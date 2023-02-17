@@ -1,0 +1,51 @@
+:root {
+  --scrollbarBg: #2F2F37;
+  --scrollbarThumb: #8585AD;
+  --scrollbarWidth: 12px;
+  --scrollbarBorder: 3px solid var(--scrollbarBg);
+  --scrollbarBorderRadius: calc(var(--scrollbarWidth) / 2);
+}
+.scroll {
+  scrollbar-width: var(--scrollbarWidth);
+  scrollbar-color: var(--scrollbarThumb) var(--scrollbarBg);
+}
+.scroll::-webkit-scrollbar {
+  width: var(--scrollbarWidth);
+}
+.scroll::-webkit-scrollbar-track {
+  background: var(--scrollbarBg);
+  border-radius: var(--scrollbarBorderRadius);
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbarThumb);
+  border-radius: var(--scrollbarBorderRadius);
+  border: var(--scrollbarBorder);
+}
+
+.scroll {
+  width: clamp(500px, 100%, 600px);
+  height: 480px;
+  overflow: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.section {
+  max-width: 600px
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.orderbox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.summ {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
