@@ -2,8 +2,10 @@ const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
+const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
+
 export const getIngredients = () => {
-  return fetch(`${process.env.REACT_APP_BASE_URL}/ingredients`)
+  return fetch(`${BASE_URL}/ingredients`)
     .then(checkResponse)
     .then(data => {
       if (data.success === true) {
@@ -14,7 +16,7 @@ export const getIngredients = () => {
 };
 
 export const getOrderNumber= (ing_Id) => {
-  return fetch(`${process.env.REACT_APP_BASE_URL}/orders`, {
+  return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
