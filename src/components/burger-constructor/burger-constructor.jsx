@@ -4,11 +4,11 @@ import styles from './burger-constructor.module.css';
 import { useState, useCallback } from 'react';
 import Modal from '../modal/modal.jsx';
 import OrderDetails from '../modal/order-details/order-details.jsx';
-import {getOrderNumber} from '../../utils/burger-api.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
-import { getONumber, addIngredientData, updateIngredientData } from '../../services/reducers/reducers.js';
+import { fetchOrderNumber } from '../../services/actions/actions.js';
+import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers.js';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
@@ -39,11 +39,8 @@ function BurgerConstructor() {
 
   function handleOrderNumber() {
     let ing_Id = ingrArr.map(obj => obj.item._id);
-    getOrderNumber(ing_Id)
-      .then((data) => {
-        dispatch(getONumber(data.order.number));
-      })
-      .catch('При оформлении заказа произошла ошибка');
+    dispatch(fetchOrderNumber(ing_Id));
+    dispatch(removeAllIngredientData());
     setIsOpen(true);
   }
 

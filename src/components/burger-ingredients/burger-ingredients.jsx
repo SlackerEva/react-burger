@@ -1,22 +1,28 @@
-import { useEffect, useState  } from 'react';
+import { useEffect, useState, useRef  } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import BurgerIngredientCategory from './burger-ingredients-category/burger-ingredients-category.jsx';
 import styles from './burger-ingredients.module.css';
 
 function BurgerIngredients() {
   const [current, setCurrent] = useState('bun');
-  
+  const bunRef = useRef(null);
+  const souceRef = useRef(null);
+  const mainRef = useRef(null);
   useEffect(() => {
-    const sections = document.querySelectorAll('.section');
+    const refsArr = [bunRef.current, souceRef.current, mainRef.current];
+    const sections = [];
     let observer = new IntersectionObserver((entrys) => {
       for (const entry of entrys) {
-        if ( entry.isIntersecting) {
-          setCurrent(entry.target.id);
+        sections[entry.target.id] = entry.isIntersecting;
+      }
+      for (const section in sections) {
+        if (sections[section]) {
+          setCurrent(section);
           break;
         }
       }
     }) 
-    sections.forEach((s) => { observer.observe(s) });
+    refsArr.forEach((s) => { observer.observe(s) });
   }, [current]);
 
   return(
@@ -34,9 +40,9 @@ function BurgerIngredients() {
         </Tab>
       </div>
       <div className={styles.scroll}>
-        <BurgerIngredientCategory item={{title:'Булки', type:'bun'}} />
-        <BurgerIngredientCategory item={{title:'Соусы', type:'sauce'}} />
-        <BurgerIngredientCategory item={{title:'Начинки', type:'main'}} />
+        <BurgerIngredientCategory ref={bunRef} item={{title:'Булки', type:'bun'}} />
+        <BurgerIngredientCategory ref={souceRef} item={{title:'Соусы', type:'sauce'}} />
+        <BurgerIngredientCategory ref={mainRef} item={{title:'Начинки', type:'main'}} />
       </div>
     </section>
   );
