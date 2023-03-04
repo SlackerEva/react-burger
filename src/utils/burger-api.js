@@ -8,14 +8,18 @@ const checkSuccess = (res) => {
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
 
-export const getIngredients = () => {
-  return fetch(`${BASE_URL}/ingredients`)
+const request = (url, option) => {
+  return fetch(`${BASE_URL}/${url}`, option)
     .then(checkResponse)
     .then(checkSuccess)
+}
+
+export const getIngredients = () => {
+  return request('ingredients', {});
 };
 
 export const getOrderNumber = (ing_Id) => {
-  return fetch(`${BASE_URL}/orders`, {
+  return request('orders', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -24,7 +28,5 @@ export const getOrderNumber = (ing_Id) => {
     body: JSON.stringify({
       "ingredients": ing_Id
     })
-  })
-    .then(checkResponse)
-    .then(checkSuccess)
+  });
 }
