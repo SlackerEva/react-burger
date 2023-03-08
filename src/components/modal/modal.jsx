@@ -6,20 +6,19 @@ import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById("react-modals");
-const escKeyCode = 27;
 function Modal({ onClose, children }) {
-    const closeOnEsc= (e) => {
-      if ((e.charCode || e.keyCode) === escKeyCode) {
-        onClose();
-      }
-    }
 
     useEffect(() => {
+      const closeOnEsc= (e) => {
+        if (e.key === "Escape") {
+          onClose();
+        }
+      }
       document.body.addEventListener('keydown', closeOnEsc)
       return function cleanUp() {
         document.body.removeEventListener('keydown', closeOnEsc)
       }
-    });
+    }, [onClose]);
 
     return (
       createPortal(
