@@ -5,6 +5,8 @@ const initialState = {
   ingredients: [],
   ingrData: [],
   orderNumber: null,
+  isModalOpen: false,
+  ingredientDetail: {}
 }
 
 export const ingredientsSlice = createSlice({
@@ -26,7 +28,16 @@ export const ingredientsSlice = createSlice({
       const bun = action.payload.find(obj => obj.item.type === 'bun');
       const newArr = action.payload.filter(obj => obj.item.type !== 'bun');
       state.ingrData = [...newArr, bun, bun];
-    }
+    },
+    handleModalClose: (state) => {
+      state.isModalOpen = false;
+    },
+    handleModalOpen: (state) => {
+      state.isModalOpen = true;
+    },
+    setIngredientDetail: (state, action) => {
+      state.ingredientDetail = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -34,11 +45,11 @@ export const ingredientsSlice = createSlice({
         state.ingredients = action.payload.data;
         })
     builder
-    .addCase(fetchOrderNumber.fulfilled, (state, action) => {
-      state.orderNumber = action.payload.order.number;
-    })
+      .addCase(fetchOrderNumber.fulfilled, (state, action) => {
+        state.orderNumber = action.payload.order.number;
+      })
   },
 })
 
-export const { getAllIngredients, addIngredientData, removeIngredientData, updateIngredientData, getONumber, removeAllIngredientData } = ingredientsSlice.actions;
+export const { setIngredientDetail, handleModalClose, handleModalOpen, addIngredientData, removeIngredientData, updateIngredientData, getONumber, removeAllIngredientData } = ingredientsSlice.actions;
 export default ingredientsSlice.reducer;

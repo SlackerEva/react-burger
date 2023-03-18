@@ -24,3 +24,8 @@
   flex-direction: column;
   justify-content: center;
 }
+
+.link {
+  color: white;
+  text-decoration: none;
+}

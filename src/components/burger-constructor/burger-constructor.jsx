@@ -12,6 +12,8 @@ import { addIngredientData, updateIngredientData, removeAllIngredientData } from
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingrData);
   const ingrArr = ingredients?.filter(obj => obj.item.type !== 'bun') ?? [];
@@ -76,9 +78,9 @@ function BurgerConstructor() {
                 <p className="text text_type_digits-medium">{finalPrice}</p>
                 <CurrencyIcon type="primary" />
               </div>
-              <Button htmlType="button" type="primary" size="large" onClick={() => handleOrderNumber()}>
+              {isLoggedIn && (<Button htmlType="button" type="primary" size="large" onClick={() => handleOrderNumber()}>
                 Оформить заказ
-              </Button>
+              </Button>)}
             </div>
           </> 
         }

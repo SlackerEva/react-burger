@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { forwardRef } from 'react';
 
+
 const BurgerIngredientCategory = forwardRef((props, ref) => {
   const { title, type } = props.item;
   const ingredients = useSelector((state) => state.ingredients.ingredients);
@@ -13,7 +14,7 @@ const BurgerIngredientCategory = forwardRef((props, ref) => {
       <h2 className={`text text_type_main-medium ${styles.title}`}>{title}</h2>
       <ul className={`mb-10 mt-6 ml-4 mr-1 ${styles.ul}`}>
         {category.map(item => (
-            <BurgerIngredientCard key={item._id} card={item} />
+          <BurgerIngredientCard key={item._id} card={item} />
         ))}
       </ul>
     </div>

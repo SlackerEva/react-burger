@@ -1,9 +1,20 @@
 import styles from './ingredient-details.module.css';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { setIngredientDetail } from '../../../services/reducers/reducers';
 import dataPropTypes from '../../../utils/prop-types.js';
 
 function IngredientDetails(props) {
-  const { name, image, calories, proteins, fat, carbohydrates } = props.card;
- 
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const ingrDetail = useSelector((state) => state.ingredients.ingredientDetail);
+  const ingrInfo = ingredients?.find((item) => item._id === id) ?? ingrDetail;
+  if (ingrInfo) {
+    dispatch(setIngredientDetail(ingrInfo));
+  }
+  const { name, image, calories, proteins, fat, carbohydrates } = ingrInfo || props.card;
+
   return (
     <>
       <h2 className={`text text_type_main-large mr-10 mt-10 ml-10 ${styles.h2}`}>Детали ингредиента</h2>
@@ -32,7 +43,7 @@ function IngredientDetails(props) {
 }
 
 IngredientDetails.propTypes = {
-  card: dataPropTypes.isRequired
+  card: dataPropTypes
 }
 
 
