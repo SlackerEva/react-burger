@@ -5,7 +5,7 @@ export function ProtectedRouteElement({ element, anonymous = false }) {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
   const from = location.state?.from || '/';
-  console.log(anonymous, isLoggedIn, from);
+  
   if (anonymous && isLoggedIn) {
     return <Navigate to={from} />
   }
