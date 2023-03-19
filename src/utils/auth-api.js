@@ -1,44 +1,31 @@
 
 import { setCookie, getCookie } from "./cookie";
-
-const checkResponse = async (res) => {
-  if (res.ok) {
-    console.log("CheckRespo: OK");
-    return res.json();
-  } 
-  console.log("CheckRespo: NOT OK");
-  return res.json().then(err => Promise.reject(err));
-}
-
-const checkSuccess = (res) => {
-  if (res && res.success) {
-    console.log("CheckSuccess: OK");
-    return res;
-  }
-  console.log("CheckSuccess: NOT OK");
-  return Promise.reject(`Ответ не success: ${res}`);
-}
-
-const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
-
-// async function fetchWithTimeout(resource, options = {}) {
-//   const { timeout = 1000 } = options;
-  
-//   const controller = new AbortController();
-//   const id = setTimeout(() => controller.abort(), timeout);
-//   const response = await fetch(resource, {
-//     ...options,
-//     signal: controller.signal  
-//   });
-//   clearTimeout(id);
-//   return response;
+import { request } from './burger-api';
+// const checkResponse = async (res) => {
+//   if (res.ok) {
+//     console.log("CheckRespo: OK");
+//     return res.json();
+//   } 
+//   console.log("CheckRespo: NOT OK");
+//   return res.json().then(err => Promise.reject(err));
 // }
 
-const request = (url, option) => {
-  return fetch(`${BASE_URL}/${url}`, option)
-    .then(checkResponse)
-    .then(checkSuccess)
-}
+// const checkSuccess = (res) => {
+//   if (res && res.success) {
+//     console.log("CheckSuccess: OK");
+//     return res;
+//   }
+//   console.log("CheckSuccess: NOT OK");
+//   return Promise.reject(`Ответ не success: ${res}`);
+// }
+
+// const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
+
+// const request = (url, option) => {
+//   return fetch(`${BASE_URL}/${url}`, option)
+//     .then(checkResponse)
+//     .then(checkSuccess)
+// }
 
 export const login = (email, password) => {
   console.log(email, password);
@@ -104,7 +91,7 @@ export const getUser = async () => {
   }
 }
 
-export const changeUserData = async (name, email, password) => {
+export const changeUserData = async ({name, email, password}) => {
   try {
   const res = await request('auth/user', {
     method: 'PATCH',

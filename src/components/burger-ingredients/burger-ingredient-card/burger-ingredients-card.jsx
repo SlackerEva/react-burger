@@ -6,7 +6,7 @@ import IngredientDetails from '../../modal/ingredient-details/ingredient-details
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrag } from 'react-dnd';
 import { useLocation } from "react-router-dom";
-import { handleModalClose } from '../../../services/reducers/reducers.js';
+import { handleModalClose, handleModalOpen } from '../../../services/reducers/reducers.js';
 import { Link } from 'react-router-dom';
 
 
@@ -29,14 +29,15 @@ function BurgerIngredientCard(props) {
     dispatch(handleModalClose());
   }
 
-  // function handleOpen() {
-  //   dispatch(handleModalOpen());
-  // }
+  function handleOpen() {
+    dispatch(handleModalOpen());
+  }
 
   return(
-    <Link key={_id} to={{pathname: `/ingredients/${_id}`, state: { background: location }}} className={`${styles.link}`}>
-      {/* <li ref={dragRef} style={{ opacity }} className={styles.li} onClick={handleOpen}> */}
-      <li ref={dragRef} style={{ opacity }} className={styles.li}>
+    <>
+     <Link key={_id} to={{pathname: `/ingredients/${_id}`, state: { background: location }}} className={`${styles.link}`}>
+      <li ref={dragRef} style={{ opacity }} className={styles.li} onClick={handleOpen}>
+      {/* <li ref={dragRef} style={{ opacity }} className={styles.li}> */}
       {countIngr !== 0 && <span className={`text text_type_main-default ${styles.number}`}>{countIngr}</span>}
         <img className="pb-1 pl-4 pr-4" src={image} alt={name} />
         <div className={`pb-1 ${styles.container}`}>
@@ -52,7 +53,8 @@ function BurgerIngredientCard(props) {
           <IngredientDetails card={props.card} />
         </Modal>
       }
-    </Link>
+     </Link>
+    </>
   );
 }
 
