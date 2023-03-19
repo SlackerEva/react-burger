@@ -6,7 +6,6 @@ const initialState = {
   ingrData: [],
   orderNumber: null,
   isModalOpen: false,
-  ingredientDetail: {}
 }
 
 export const ingredientsSlice = createSlice({
@@ -34,10 +33,7 @@ export const ingredientsSlice = createSlice({
     },
     handleModalOpen: (state) => {
       state.isModalOpen = true;
-    },
-    setIngredientDetail: (state, action) => {
-      state.ingredientDetail = action.payload;
-    },
+    }
   },
   extraReducers: (builder) => {
     builder

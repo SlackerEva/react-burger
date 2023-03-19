@@ -1,18 +1,20 @@
 import styles from './ingredient-details.module.css';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { setIngredientDetail } from '../../../services/reducers/reducers';
 import dataPropTypes from '../../../utils/prop-types.js';
+import { fetchIngredients } from '../../../services/actions/actions';
+import { useEffect } from 'react';
 
 function IngredientDetails(props) {
   const dispatch = useDispatch();
-  const {id} = useParams();
+  const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchIngredients());
+  }, [dispatch]);
+
   const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const ingrDetail = useSelector((state) => state.ingredients.ingredientDetail);
-  const ingrInfo = ingredients?.find((item) => item._id === id) ?? ingrDetail;
-  if (ingrInfo) {
-    dispatch(setIngredientDetail(ingrInfo));
-  }
+  const ingrInfo = ingredients?.find((item) => item._id === id) ?? {};
   const { name, image, calories, proteins, fat, carbohydrates } = ingrInfo || props.card;
 
   return (
