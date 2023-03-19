@@ -28,8 +28,6 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchRegister.fulfilled, (state, action) => {
-        console.log(action.payload);
-
         state.userName = action.payload.user.name;
         state.email = action.payload.user.email;
         setCookie('token', action.payload.accessToken);
@@ -41,8 +39,7 @@ export const authSlice = createSlice({
 
     builder
       .addCase(fetchLogin.fulfilled, (state, action) => {
-        console.log(action.payload);
-
+        state.isLoggedIn = true;
         state.userName = action.payload.user.name;
         state.email = action.payload.user.email;
         setCookie('token', action.payload.accessToken);
@@ -54,7 +51,6 @@ export const authSlice = createSlice({
 
     builder
       .addCase(fetchGetUser.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.userName = action.payload.user.name;
         state.email = action.payload.user.email;
         state.isLoggedIn = true;
@@ -62,20 +58,17 @@ export const authSlice = createSlice({
     
     builder
       .addCase(fetchChangeUserData.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.userName = action.payload.user.name;
         state.email = action.payload.user.email;
       })
 
     builder
       .addCase(fetchForgotPass.fulfilled, (state, action) => {      
-        console.log(action.payload);
         state.resetPass = action.payload.success;
       })
 
     builder
       .addCase(fetchResetPass.fulfilled, (state, action) => {      
-        console.log(action.payload);
         state.resetPass = false;
       })
 

@@ -11,6 +11,8 @@ import IngredientDetails from '../modal/ingredient-details/ingredient-details';
 import { handleModalClose } from '../../services/reducers/reducers';
 import Modal from '../modal/modal';
 import { useLocation, useNavigate } from "react-router-dom";
+import { getCookie } from '../../utils/cookie';
+import { fetchGetUser } from '../../services/actions/authActions';
 
 function App() {
   const dispatch = useDispatch();
@@ -20,6 +22,9 @@ function App() {
 
   useEffect (() => {
     dispatch(fetchIngredients());
+    if (getCookie('token')) {
+      dispatch(fetchGetUser());
+    }
   }, [dispatch]);
 
   const handleModal = () => {

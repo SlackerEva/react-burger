@@ -1,34 +1,8 @@
 
 import { setCookie, getCookie } from "./cookie";
 import { request } from './burger-api';
-// const checkResponse = async (res) => {
-//   if (res.ok) {
-//     console.log("CheckRespo: OK");
-//     return res.json();
-//   } 
-//   console.log("CheckRespo: NOT OK");
-//   return res.json().then(err => Promise.reject(err));
-// }
-
-// const checkSuccess = (res) => {
-//   if (res && res.success) {
-//     console.log("CheckSuccess: OK");
-//     return res;
-//   }
-//   console.log("CheckSuccess: NOT OK");
-//   return Promise.reject(`Ответ не success: ${res}`);
-// }
-
-// const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
-
-// const request = (url, option) => {
-//   return fetch(`${BASE_URL}/${url}`, option)
-//     .then(checkResponse)
-//     .then(checkSuccess)
-// }
 
 export const login = (email, password) => {
-  console.log(email, password);
   return request('auth/login', {
     method: 'POST',
     headers: {
@@ -43,7 +17,6 @@ export const login = (email, password) => {
 }
 
 export const register = (name, email, password) => {
-  console.log("Sending " + email + " " + name + " "+ password )
   return request('auth/register', {
     method: 'POST',
     headers: {
