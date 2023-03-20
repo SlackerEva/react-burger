@@ -58,8 +58,6 @@ function App() {
           />
         </Routes>
       )}
-      {/* <ModalSwitch /> */}
-
     </div>
   );
 }

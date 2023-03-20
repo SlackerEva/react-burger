@@ -36,32 +36,36 @@ const saveTokens = (refreshToken, accessToken) => {
   localStorage.setItem('refreshToken', refreshToken);
  }
 
-export const getUser = async () => {
-  try {
-    return await request('auth/user', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        "Content-Type": "application/json",
-        "authorization": getCookie('token')
-      }
-    });
-  } catch(err) {
-    if (err.message === 'jwt expired') {
-      console.log('jwt expired');
+
+const getUserData = async (postprocess) => {
+  console.log('here');
+  return request('auth/user',{
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      "Content-Type": "application/json",
+      "authorization": getCookie('token')
+    }
+  }, postprocess);
+}
+
+const refreshExpiredToken = async (res) => {
+  if (res.status === 403) {
+    const body = await res.json();
+    if (body.message === 'jwt expired') {
       const {refreshToken, accessToken} = await getToken();
       saveTokens(refreshToken, accessToken);  
-      const res = await request('user', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          "Content-Type": "application/json",
-          "authorization": getCookie('token')
-        }
-      });
-      return res;
+      return await getUserData();
     }
+    Promise.reject(`Forbidden: ${res}`)
   }
+  return res;
+}
+
+
+export const getUser = async () => {
+  const res = await getUserData(refreshExpiredToken);
+  return res;
 }
 
 export const changeUserData = async ({name, email, password}) => {

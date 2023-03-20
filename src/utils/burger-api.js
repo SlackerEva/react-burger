@@ -1,15 +1,16 @@
-const checkResponse = (res) => {
+export const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then(err => Promise.reject(err));
 }
 
-const checkSuccess = (res) => {
+export const checkSuccess = (res) => {
   return (res && res.success) ? res : Promise.reject(`Ответ не success: ${res}`);
 }
 
 export const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomoreparties.space/api";
 
-export const request = (url, option) => {
+export const request = (url, option, custom_postprocess) => {
   return fetch(`${BASE_URL}/${url}`, option)
+    .then(custom_postprocess ?? ((res) => { return res }))
     .then(checkResponse)
     .then(checkSuccess)
 }

@@ -43,9 +43,7 @@ export const fetchGetUser= createAsyncThunk(
 export const fetchChangeUserData = createAsyncThunk(
   'auth/fetchChangeUserData',
   async (name, email, password) => {
-    console.log(name, email, password);
     const res = await changeUserData(name, email, password);
-    console.log(res);
     return res; 
   }
 )
