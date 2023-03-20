@@ -1,5 +1,5 @@
 import styles from './app.module.css';
-import { HomePage, Login, Register, ForgotPass, ResetPass, Profile, NotFound } from '../pages/pages.js';
+import { HomePage, Login, Register, ForgotPass, ResetPass, Profile, NotFound } from '../../pages/pages.js';
 import { Routes, Route } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
 import { ProtectedRouteElement } from '../protected-route/protected-route.js';

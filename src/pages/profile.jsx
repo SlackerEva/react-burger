@@ -2,8 +2,8 @@ import { PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burg
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import styles from './profile.module.css';
-import { fetchGetUser, fetchChangeUserData } from "../../services/actions/authActions";
-import { logout } from '../../services/reducers/authSlice.js';
+import { fetchGetUser, fetchChangeUserData } from "../services/actions/authActions";
+import { logout } from '../services/reducers/authSlice.js';
 import { Link } from 'react-router-dom';
 
 function Profile() {
@@ -27,7 +27,8 @@ function Profile() {
     dispatch(logout());
   }
 
-  const handleSave= () => {
+  const handleSave= (event) => {
+    event.preventDefault();
     dispatch(fetchChangeUserData({
       "name": name,
       "email": email, 
@@ -53,11 +54,11 @@ function Profile() {
         <Link className={`text text_type_main-medium text_color_inactive mb-20 ${styles.li}`} onClick={handleLogout} to={'/login'}>Выход</Link>
         <p className="text text_type_main-default text_color_inactive">В этом разделе вы можете изменить свои персональные данные</p>
       </ul>
-      <form>
+      <form onSubmit={handleSave}>
         <Input extraClass="mb-6" placeholder="Имя" icon={'EditIcon'} value={name} name="name" onChange={onChangeName} />
         <Input extraClass="mb-6" placeholder="Логин" icon={'EditIcon'} value={email} name="email" onChange={onChangeEmail} />
         <PasswordInput extraClass="mb-6" placeholder="Пароль" icon={'EditIcon'} value={pass} name="pass" onChange={(e) => setPass(e.target.value)} />
-        <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={handleSave}>
+        <Button htmlType="submit" type="primary" size="small" extraClass="ml-2">
           Сохранить
         </Button>
         <Button htmlType="button" type="primary" size="small" extraClass="ml-2" onClick={handleCancel}>
