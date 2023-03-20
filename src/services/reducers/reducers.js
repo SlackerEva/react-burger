@@ -29,11 +29,9 @@ export const ingredientsSlice = createSlice({
       state.ingrData = [...newArr, bun, bun];
     },
     handleModalClose: (state) => {
-      console.log('modal close');
       state.isModalOpen = false;
     },
     handleModalOpen: (state) => {
-      console.log('modal open');
       state.isModalOpen = true;
     }
   },

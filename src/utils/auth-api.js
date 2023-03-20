@@ -65,7 +65,6 @@ export const getUser = async () => {
 }
 
 export const changeUserData = async ({name, email, password}) => {
-  try {
   const res = await request('auth/user', {
     method: 'PATCH',
     headers: {
@@ -79,10 +78,7 @@ export const changeUserData = async ({name, email, password}) => {
       "name": name
     })
   });
-    return res;
-  } catch (err) {
-    console.log("err: " + err);
-  }
+  return res;
 }
 
 export const getToken = () => {
