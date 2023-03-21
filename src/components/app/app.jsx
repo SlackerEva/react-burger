@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/actions/actions';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
-//import ModalSwitch from '../modal/modal-switch/modal-switch';
 import { handleModalClose } from '../../services/reducers/reducers';
 import Modal from '../modal/modal';
 import { useLocation, useNavigate } from "react-router-dom";

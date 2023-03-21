@@ -2,8 +2,8 @@
 import { setCookie, getCookie } from "./cookie";
 import { request } from './burger-api';
 
-export const login = (email, password) => {
-  return request('auth/login', {
+export const login = async (email, password) => {
+  return await request('auth/login', {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -36,9 +36,7 @@ const saveTokens = (refreshToken, accessToken) => {
   localStorage.setItem('refreshToken', refreshToken);
  }
 
-
 const getUserData = async (postprocess) => {
-  console.log('here');
   return request('auth/user',{
     method: 'GET',
     headers: {

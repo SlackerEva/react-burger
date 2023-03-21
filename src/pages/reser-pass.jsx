@@ -4,13 +4,22 @@ import styles from './login.module.css';
 import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { fetchResetPass } from "../services/actions/authActions";
+import { useLocation, Navigate } from "react-router-dom";
 
 
 function ResetPass() {
   const dispatch = useDispatch();
-
+  const location = useLocation();
+  const from = location.state?.from || "/";
   const [pass, setPass] = useState('');
   const [token, setToken] = useState('');
+
+  if (from.pathname !== '/forgot-password') {
+    return (
+      <Navigate to={'/'} />
+    );
+  }
+
   const onChangePass = e => {
     setPass(e.target.value)
   }

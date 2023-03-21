@@ -43,7 +43,7 @@ function Profile() {
   }
 
   useEffect(() => {
-    dispatch(fetchGetUser());
+    dispatch(fetchGetUser()); 
   }, );
 
   return (
