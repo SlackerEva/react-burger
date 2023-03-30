@@ -1,0 +1,11 @@
+.container {
+  text-align: center;
+  top: 30%;
+  left: 38%;
+  position: fixed;
+}
+
+.link {
+  text-decoration: none;
+  color: #4C4CFF;
+}

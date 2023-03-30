@@ -9,9 +9,13 @@ import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
 import { fetchOrderNumber } from '../../services/actions/actions.js';
 import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers.js';
+import { useNavigate } from "react-router-dom";
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const ingredients = useSelector((state) => state.ingredients.ingrData);
   const ingrArr = ingredients?.filter(obj => obj.item.type !== 'bun') ?? [];
@@ -42,6 +46,10 @@ function BurgerConstructor() {
     dispatch(fetchOrderNumber(ing_Id));
     dispatch(removeAllIngredientData());
     setIsOpen(true);
+  }
+
+  const handleClick = () => {
+    isLoggedIn ? handleOrderNumber() : navigate('/login');
   }
 
   return (
@@ -76,7 +84,7 @@ function BurgerConstructor() {
                 <p className="text text_type_digits-medium">{finalPrice}</p>
                 <CurrencyIcon type="primary" />
               </div>
-              <Button htmlType="button" type="primary" size="large" onClick={() => handleOrderNumber()}>
+              <Button htmlType="button" type="primary" size="large" onClick={handleClick}>
                 Оформить заказ
               </Button>
             </div>
