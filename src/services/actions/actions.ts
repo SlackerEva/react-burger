@@ -2,17 +2,9 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getIngredients, getOrderNumber } from '../../utils/burger-api';
 
 export const fetchIngredients = createAsyncThunk(
-  'ingredients/fetchIngredients',
-  async () => {
-    const res = await getIngredients();
-    return res; 
-  }
+  'ingredients/fetchIngredients', getIngredients
 )
 
 export const fetchOrderNumber = createAsyncThunk(
-  'ingredients/fetchOrderNumber',
-  async (ing_Id: string) => {
-    const res = await getOrderNumber(ing_Id);
-    return res; 
-  }
+  'ingredients/fetchOrderNumber', getOrderNumber
 )

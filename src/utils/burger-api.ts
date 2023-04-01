@@ -10,7 +10,7 @@ export const BASE_URL = process.env.REACT_APP_BASE_URL || "https://norma.nomorep
 
 export const request = (url: string, option: {}, custom_postprocess?: any) => {
   return fetch(`${BASE_URL}/${url}`, option)
-    .then(custom_postprocess ?? ((res) => { return res }))
+    //.then(custom_postprocess ?? ((res) => { return res }))
     .then(checkResponse)
     .then(checkSuccess)
 }
