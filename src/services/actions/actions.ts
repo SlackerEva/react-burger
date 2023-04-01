@@ -11,7 +11,7 @@ export const fetchIngredients = createAsyncThunk(
 
 export const fetchOrderNumber = createAsyncThunk(
   'ingredients/fetchOrderNumber',
-  async (ing_Id) => {
+  async (ing_Id: string) => {
     const res = await getOrderNumber(ing_Id);
     return res; 
   }

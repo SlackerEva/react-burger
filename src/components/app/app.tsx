@@ -1,9 +1,9 @@
 import styles from './app.module.css';
-import { HomePage, Login, Register, ForgotPass, ResetPass, Profile, NotFound } from '../../pages/pages.js';
+import { HomePage, Login, Register, ForgotPass, ResetPass, Profile, NotFound } from '../../pages/pages';
 import { Routes, Route } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
-import { ProtectedRouteElement } from '../protected-route/protected-route.js';
-import { useDispatch } from 'react-redux';
+import ProtectedRouteElement from '../protected-route/protected-route';
+import { useAppDispatch } from '../../utils/hooks';
 import { useEffect } from 'react';
 import { fetchIngredients } from '../../services/actions/actions';
 import IngredientDetails from '../modal/ingredient-details/ingredient-details';
@@ -14,7 +14,7 @@ import { getCookie } from '../../utils/cookie';
 import { fetchGetUser } from '../../services/actions/authActions';
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;

@@ -1,14 +1,16 @@
-//import dataPropTypes from '../../../utils/prop-types.js';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { FC } from 'react';
 import style from './app-header-item.module.css';
-import PropTypes from 'prop-types';
 import { Link, useMatch } from 'react-router-dom';
 
+type THeaderItemProps = {
+  readonly title: string;
+  readonly to: string;
+  readonly className?: string;
+}
 
-function AppHeaderItem(props) {
-  const { title, to } = props;
+const AppHeaderItem: FC<THeaderItemProps> = ({ title, to }) => {
   const match = useMatch(to);
-
   const active = match ? 'white' : '#8585AD';
   const iconActive = match ? 'primary' : 'secondary';
 
@@ -18,10 +20,6 @@ function AppHeaderItem(props) {
       <span style={{ color: active }} className={`pl-2 text text_type_main-default`}>{title}</span>
     </Link>
   );
-}
-
-AppHeaderItem.propTypes = {
-  title: PropTypes.string.isRequired
 }
 
 export default AppHeaderItem;

@@ -2,30 +2,38 @@ import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burg
 import { useState } from 'react';
 import styles from './login.module.css';
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+//import { useForm } from "../hooks/useForm";
+import { useAppDispatch } from "../utils/hooks";
 import { fetchRegister } from "../services/actions/authActions";
 
 function Register() {
-  const dispatch = useDispatch();
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useAppDispatch();
+  // const { values, handleChange } = useForm({
+  //   email: "",
+  //   userName: "",
+  //   password: "",
+  // });
 
-  const onChangeName = e => {
+  const [userName, setUserName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserName(e.target.value)
   }
-  const onChangeEmail = e => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
-  const onChangePass = e => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
   }
-  const register = (event) => {
+  
+  const register = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(fetchRegister({
-      "userName": userName, 
-      "email": email, 
-      "password": password
+      email: email,
+      name: userName,
+      password: password,
     }));
   }
 

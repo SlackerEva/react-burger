@@ -1,12 +1,18 @@
 import styles from './ingredient-details.module.css';
-import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import dataPropTypes from '../../../utils/prop-types.js';
+import { FC } from 'react';
+import { TIngredients } from '../../../types/types';
+import { useAppSelector } from '../../../utils/hooks';
 
-function IngredientDetails(props) {
+type TCard = {
+  key?: string;
+  card?: TIngredients;
+}
+
+const IngredientDetails: FC<TCard> = (props) => {
   const { id } = useParams();
-  const ingredients = useSelector((state) => state.ingredients.ingredients);
-  const ingrInfo = ingredients?.find((item) => item._id === id) ?? {};
+  const ingredients = useAppSelector((state) => state.ingredients.ingredients);
+  const ingrInfo: any = ingredients?.find((item: TIngredients) => item._id === id);
   const { name, image, calories, proteins, fat, carbohydrates } = ingrInfo || props.card;
 
   return (
@@ -35,10 +41,5 @@ function IngredientDetails(props) {
     </>
   );
 }
-
-IngredientDetails.propTypes = {
-  card: dataPropTypes
-}
-
 
 export default IngredientDetails;

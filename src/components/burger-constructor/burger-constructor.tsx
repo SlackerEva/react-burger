@@ -1,29 +1,30 @@
 import { ConstructorElement, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
-import BurgerConstructorItem from './burger-constructor-item/burger-constructor-item.jsx';
+import BurgerConstructorItem from './burger-constructor-item/burger-constructor-item';
 import styles from './burger-constructor.module.css';
 import { useState, useCallback } from 'react';
-import Modal from '../modal/modal.jsx';
-import OrderDetails from '../modal/order-details/order-details.jsx';
-import { useSelector, useDispatch } from 'react-redux';
+import Modal from '../modal/modal';
+import OrderDetails from '../modal/order-details/order-details';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
-import { fetchOrderNumber } from '../../services/actions/actions.js';
+import { fetchOrderNumber } from '../../services/actions/actions';
 import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers.js';
 import { useNavigate } from "react-router-dom";
+// import { TIngredients } from '../../types/types';
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
 
-  const dispatch = useDispatch();
-  const ingredients = useSelector((state) => state.ingredients.ingrData);
-  const ingrArr = ingredients?.filter(obj => obj.item.type !== 'bun') ?? [];
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector((state) => state.ingredients.ingrData);
+  const ingrArr = ingredients?.filter((obj: any) => obj.item.type !== 'bun') ?? [];
   //const ingrArr = useMemo(()=> {return ingredients?.filter(obj => obj.type !== 'bun') ?? []}, [ingredients]);
-  const bun = ingredients?.find(obj => obj.item.type === 'bun');
-  const finalPrice = ingrArr?.reduce((acc, item) => acc + item.item.price, bun?.item.price*2 ?? 0);
+  const bun: any = ingredients?.find((obj: any) => obj.item.type === 'bun');
+  const finalPrice = ingrArr?.reduce((acc: number, item: any) => acc + item.item.price, bun?.item.price*2 ?? 0);
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = useCallback((dragIndex: any, hoverIndex: any) => {
     const dragCard = ingredients[dragIndex];
     const newCards = [...ingredients]
     newCards.splice(dragIndex, 1)
@@ -42,7 +43,7 @@ function BurgerConstructor() {
   })
 
   function handleOrderNumber() {
-    let ing_Id = ingrArr.map(obj => obj.item._id);
+    let ing_Id: any = ingrArr.map((obj: any) => obj.item._id);
     dispatch(fetchOrderNumber(ing_Id));
     dispatch(removeAllIngredientData());
     setIsOpen(true);
@@ -66,7 +67,7 @@ function BurgerConstructor() {
               thumbnail={bun.item.image}
             />
             <ul className={styles.scroll}>
-              {ingrArr.map((item, index) => 
+              {ingrArr.map((item: any, index) => 
                 (<BurgerConstructorItem key={item.dragId} index={index} item={item} moveCard={moveCard} />)
               )}
             </ul>

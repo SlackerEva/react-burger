@@ -3,13 +3,19 @@ import style from './modal.module.css';
 import ModalOverlay from './modal-overlay/modal-overlay';
 import { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
 
-const modalRoot = document.getElementById("react-modals");
-function Modal({ onClose, children }) {
+const modalRoot = document.getElementById("react-modals") as HTMLElement;
+
+type TModalProps = {
+  onClose: () => void;
+  children?: JSX.Element;
+}
+
+const Modal: FC<TModalProps> = ({ onClose, children }) => {
 
     useEffect(() => {
-      const closeOnEsc= (e) => {
+      const closeOnEsc= (e: KeyboardEvent) => {
         if (e.key === "Escape") {
           onClose();
         }
@@ -33,11 +39,6 @@ function Modal({ onClose, children }) {
         </>, modalRoot
       )
     );
-}
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.element.isRequired
 }
 
 export default Modal;

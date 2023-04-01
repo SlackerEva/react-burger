@@ -1,8 +1,14 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useAppSelector } from "../../utils/hooks";
+import { FC } from 'react';
 
-export function ProtectedRouteElement({ element, anonymous = false }) {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+type TPRElement = {
+  element: JSX.Element;
+  anonymous?: boolean;
+}
+
+const ProtectedRouteElement: FC<TPRElement> = ({ element, anonymous = false }) => {
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
   const from = location.state?.from || '/';
 
@@ -15,3 +21,5 @@ export function ProtectedRouteElement({ element, anonymous = false }) {
   }
   return element;
 }
+
+export default ProtectedRouteElement;

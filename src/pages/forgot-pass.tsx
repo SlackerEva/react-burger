@@ -3,18 +3,18 @@ import { useState } from 'react';
 import styles from './login.module.css';
 import { Link, Navigate, useLocation } from "react-router-dom";
 import { fetchForgotPass } from "../services/actions/authActions";
-import { useSelector, useDispatch } from 'react-redux';
+import { useAppSelector, useAppDispatch } from "../utils/hooks";
 
 function ForgotPass() {
   const [value, setValue] = useState('');
   const location = useLocation();
-  const resetPass = useSelector((state) => state.auth.resetPass);
-  const dispatch = useDispatch();
-  const onChange = e => {
+  const resetPass = useAppSelector((state) => state.auth.resetPass);
+  const dispatch = useAppDispatch();
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
 
-  const reset = (event) => {
+  const reset = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(fetchForgotPass(value));
   }
