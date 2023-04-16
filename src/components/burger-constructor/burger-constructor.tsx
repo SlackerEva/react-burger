@@ -8,7 +8,8 @@ import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
 import { fetchOrderNumber } from '../../services/actions/actions';
-import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers.js';
+import { fetchOrder } from '../../services/actions/actions';
+import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers';
 import { useNavigate } from "react-router-dom";
 // import { TIngredients } from '../../types/types';
 
@@ -45,6 +46,7 @@ function BurgerConstructor() {
   function handleOrderNumber() {
     let ing_Id: any = ingrArr.map((obj: any) => obj.item._id);
     dispatch(fetchOrderNumber(ing_Id));
+    dispatch(fetchOrder(ing_Id));
     dispatch(removeAllIngredientData());
     setIsOpen(true);
   }
@@ -67,7 +69,7 @@ function BurgerConstructor() {
               thumbnail={bun.item.image}
             />
             <ul className={styles.scroll}>
-              {ingrArr.map((item: any, index) => 
+              {ingrArr.map((item: any, index: number) => 
                 (<BurgerConstructorItem key={item.dragId} index={index} item={item} moveCard={moveCard} />)
               )}
             </ul>

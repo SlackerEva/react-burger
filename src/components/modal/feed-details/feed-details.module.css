@@ -1,24 +1,3 @@
-.container {
-  display: flex;
-  margin-top: 64px;
-  margin-left: 360px;
-}
-
-.nav {
-  display: flex;
-  flex-direction: column;
-  list-style-type: none;
-  margin: 0 60px 0 0;
-  padding-left: 0;
-  width: 320px;
-  text-align: start;
-}
-
-.li {
-  line-height	: 64px;
-  text-decoration: none;
-}
-
 :root {
   --scrollbarBg: #2F2F37;
   --scrollbarThumb: #8585AD;
@@ -44,11 +23,46 @@
 }
 
 .scroll {
-  width: clamp(840px, 100%, 840px);
-  height: 700px;
+  width: clamp(640px, 100%, 640px);
+  height: 312px;
   overflow: auto;
 }
 
+.container {
+  margin-top: 40px;
+  width: 640px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
 .section {
-  width: 840px;
+  display: flex;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.name {
+  width: 406px;
+  text-align: left;
+}
+
+.price {
+  display: flex;
+}
+
+.bottom {
+  display: flex;
+  min-width: 640px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.number {
+  margin-left: auto;
+  margin-right: auto;
 }

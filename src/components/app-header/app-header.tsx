@@ -10,7 +10,7 @@ const AppHeader = () => {
       <nav className={`pt-4 pb-4 mt-10 mb-10 ${style.nav}`}>
         <div>
           <AppHeaderItem to='' title='Конструктор' />
-          <AppHeaderItem to='orders' className='ml-2' title='Лента заказов' />
+          <AppHeaderItem to='feed' className='ml-2' title='Лента заказов' />
         </div>
         <Link to={'/'} >
           <Logo />

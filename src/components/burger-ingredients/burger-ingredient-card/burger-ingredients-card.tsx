@@ -15,7 +15,7 @@ const BurgerIngredientCard: FC<TBICardProps>  = (props) => {
   const { _id, name, price, image } = props.card;
   const location = useLocation();
   const ingredients = useAppSelector((state) => state.ingredients.ingrData);
-  const countIngr = ingredients.reduce((acc, item: any) => {return item.item._id === _id ? acc + 1 : acc}, 0);
+  const countIngr = ingredients.reduce((acc: number, item: any) => {return item.item._id === _id ? acc + 1 : acc}, 0);
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...props.card },
