@@ -28,9 +28,9 @@ function App() {
     }
   }, [dispatch]);
 
-  const handleModal = () => {
+  const handleModal = (path: string) => {
     dispatch(handleModalClose());
-    navigate("/");
+    navigate(path ?? '/');
   }  
 
   return (
@@ -55,7 +55,7 @@ function App() {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal onClose={handleModal}>
+              <Modal onClose={() => handleModal('/')}>
                 <IngredientDetails />
               </Modal>
             }
@@ -63,7 +63,7 @@ function App() {
           <Route
             path="/feed/:id"
             element={
-              <Modal onClose={handleModal}>
+              <Modal onClose={() => handleModal('/feed')}>
                 <FeedDetails />
               </Modal>
             }

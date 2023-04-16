@@ -3,15 +3,18 @@ import styles from './feed-details.module.css';
 import OrderItemIcon from '../../orders/orders-item/orders-item-icon/orders-item-icon';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../../utils/hooks';
+import { useAppSelector, useAppDispatch } from '../../../utils/hooks';
 import { TOrderData } from '../../../types/types';
+import { connect } from '../../../services/actions/ws-orders-action';
+import { useEffect } from 'react';
 
 function FeedDetails() {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
   const storeIngr = useAppSelector((state) => state.ingredients.ingredients);
   const orderInfo = useAppSelector((state: any) => state.orders.orders.find((item: TOrderData) => item._id === id));
   const orderIng = storeIngr.filter((item: any) => {
-    return orderInfo.ingredients.includes(item._id);
+    return orderInfo?.ingredients.includes(item._id);
   });
   const bun: any = orderIng?.find((obj: any) => obj.type === 'bun');
   const price = orderIng.reduce((acc: number, item: any) => acc + item.price, bun?.price ?? 0);
@@ -19,6 +22,10 @@ function FeedDetails() {
     let countNum = orderInfo.ingredients.reduce((acc: number, itemIng: string) => item._id === itemIng ? acc += 1 : acc, 0);
     return countNum;
   }
+
+  useEffect(() => {
+    dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
+  }, [dispatch]);
 
   if (!orderInfo) return <></>;
 
