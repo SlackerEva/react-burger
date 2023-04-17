@@ -2,24 +2,24 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchOrder } from '../actions/actions';
 
 const initialState = {
-  orders: [],
+  orderNum: null,
   status: '',
 }
 
 export const ordersSlice = createSlice({
-  name: 'orders',
+  name: 'orderNum',
   initialState,
   reducers: {
     clearOrder: (state) => {
-      state.orders = [];
+      state.orderNum = null;
       state.status = '';
     },
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchOrder.fulfilled, (state, action) => {
-        state.orders = action.payload;
-        console.log(action.payload);
+        state.orderNum = action.payload.order.number;
+        console.log(action.payload.order.number);
         state.status = "success";
       })
   },

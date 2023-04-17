@@ -14,7 +14,7 @@ function Profile() {
   const dispatch = useAppDispatch();
   const storeName = useAppSelector((state) => state.auth.userName);
   const storeEmail = useAppSelector((state) => state.auth.email);
-  const { orders } = useAppSelector((store: any) => store.orders);
+  const { orders } = useAppSelector((store) => store.orders);
 
   const [name, setName] = useState(storeName);
   const [email, setEmail] = useState(storeEmail);

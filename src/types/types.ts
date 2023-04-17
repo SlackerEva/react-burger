@@ -26,6 +26,11 @@ export type TIngredients = {
   image_large: string;
 }
 
+export type TIngrData = {
+  dragId: string,
+  item: TIngredients
+}
+
 export type TOrderData = {
   _id: string;
   ingredients: string[];

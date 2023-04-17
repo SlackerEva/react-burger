@@ -21,7 +21,7 @@ export const getIngredients = () => {
   return request('ingredients', {});
 };
 
-export const getOrderNumber = (ing_Id: string) => {
+export const getOrderNumber = (ing_Id: string[]) => {
   return request('orders', {
     method: 'POST',
     headers: {
@@ -34,7 +34,7 @@ export const getOrderNumber = (ing_Id: string) => {
   });
 }
 
-export const addOrder = (data: any) => {
+export const addOrder = (data: string[]) => {
   console.log(data);
   return request('orders', {
     method: 'POST',
@@ -46,5 +46,5 @@ export const addOrder = (data: any) => {
     body: JSON.stringify({
       "ingredients": data
     }),
-  });
+  })
 }

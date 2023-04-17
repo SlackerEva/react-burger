@@ -14,7 +14,7 @@ type TBICategory = {
 const BurgerIngredientCategory: FC<TBICategory> = forwardRef((props, ref: any) => {
   const { title, type } = props;
   const ingredients = useAppSelector((state) => state.ingredients.ingredients);
-  const category = ingredients?.filter((obj: any) => obj.type === type) ?? [];
+  const category = ingredients?.filter((obj: TIngredients) => obj.type === type) ?? [];
   return(
     <div className='section' id={type} ref={ref}>
       <h2 className={`text text_type_main-medium ${styles.title}`}>{title}</h2>

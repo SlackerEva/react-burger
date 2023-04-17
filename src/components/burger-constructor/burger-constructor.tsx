@@ -10,28 +10,30 @@ import uuid from 'react-uuid';
 import { fetchOrderNumber } from '../../services/actions/actions';
 import { fetchOrder } from '../../services/actions/actions';
 import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers';
+import { clearOrder } from '../../services/reducers/ordersSlice';
 import { useNavigate } from "react-router-dom";
-// import { TIngredients } from '../../types/types';
+import { TIngrData } from '../../types/types';
+
+
 
 function BurgerConstructor() {
   const [isOpen, setIsOpen] = useState(false);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
-  const ingredients = useAppSelector((state) => state.ingredients.ingrData);
-  const ingrArr = ingredients?.filter((obj: any) => obj.item.type !== 'bun') ?? [];
-  //const ingrArr = useMemo(()=> {return ingredients?.filter(obj => obj.type !== 'bun') ?? []}, [ingredients]);
-  const bun: any = ingredients?.find((obj: any) => obj.item.type === 'bun');
-  const finalPrice = ingrArr?.reduce((acc: number, item: any) => acc + item.item.price, bun?.item.price*2 ?? 0);
+  const { ingrData } = useAppSelector((store) => store.ingredients); 
+  const ingrArr = ingrData?.filter((obj: TIngrData) => obj.item.type !== 'bun') ?? [];
+  const bun: any = ingrData?.find((obj: TIngrData) => obj.item.type === 'bun');
+  const allIngrArr = [...ingrData, bun];
+  const finalPrice = ingrArr?.reduce((acc: number , item: TIngrData ) => acc + item.item.price, bun?.item.price*2 ?? 0);
 
-  const moveCard = useCallback((dragIndex: any, hoverIndex: any) => {
-    const dragCard = ingredients[dragIndex];
-    const newCards = [...ingredients]
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
+    const dragCard = ingrData[dragIndex];
+    const newCards = [...ingrData]
     newCards.splice(dragIndex, 1)
     newCards.splice(hoverIndex, 0, dragCard)
     dispatch(updateIngredientData(newCards));
-  }, [ingredients, dispatch]);
+  }, [ingrData, dispatch]);
 
   const [{ isHover }, dropTargerRef] = useDrop({
     accept: 'ingredient',
@@ -44,8 +46,8 @@ function BurgerConstructor() {
   })
 
   function handleOrderNumber() {
-    let ing_Id: any = ingrArr.map((obj: any) => obj.item._id);
-    dispatch(fetchOrderNumber(ing_Id));
+    let ing_Id: string[] = allIngrArr.map((obj: TIngrData) => obj.item._id);
+    dispatch(clearOrder());
     dispatch(fetchOrder(ing_Id));
     dispatch(removeAllIngredientData());
     setIsOpen(true);
@@ -58,7 +60,7 @@ function BurgerConstructor() {
   return (
     <section className={`styles.section ${isHover ? styles.onHover : ''}`} ref={dropTargerRef} >
       <div className={`mt-15 ml-4 ${styles.container}`}>
-        {ingredients.length === 0  ? <p className="text text_type_main-medium">Выберите булку для бургера</p> :
+        {ingrData.length === 0  ? <p className="text text_type_main-medium">Выберите булку для бургера</p> :
           <>
             <ConstructorElement
               extraClass="ml-8 mb-4"
@@ -69,7 +71,7 @@ function BurgerConstructor() {
               thumbnail={bun.item.image}
             />
             <ul className={styles.scroll}>
-              {ingrArr.map((item: any, index: number) => 
+              {ingrArr.map((item: TIngrData, index: number) => 
                 (<BurgerConstructorItem key={item.dragId} index={index} item={item} moveCard={moveCard} />)
               )}
             </ul>

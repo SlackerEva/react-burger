@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useLocation, Link } from "react-router-dom";
 import { useAppSelector } from '../../../utils/hooks';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TOrderData } from '../../../types/types';
+import { TOrderData, TIngredients } from '../../../types/types';
 
 type TOrderItem = {
   item: TOrderData;
@@ -14,11 +14,11 @@ const OrdersItem: FC<TOrderItem> = ({item}) =>  {
   const location = useLocation();
   const { _id, number, name, createdAt, ingredients } = item;
   const storeIngr = useAppSelector((state) => state.ingredients.ingredients);
-  const orderIng = storeIngr.filter((item: any) => {
+  const orderIng = storeIngr.filter((item: TIngredients) => {
     return ingredients.includes(item._id);
   });
-  const bun: any = orderIng?.find((obj: any) => obj.type === 'bun');
-  const price = orderIng.reduce((acc: number, item: any) => acc + item.price, bun?.price ?? 0);
+  const bun: any = orderIng?.find((obj: TIngredients) => obj.type === 'bun');
+  const price = orderIng.reduce((acc: number, item: TIngredients) => acc + item.price, bun?.price ?? 0);
 
   return (
     <Link key={_id} to={{pathname: `/feed/${_id}`}} state={{ background : location }} className={`${styles.link}`}>
@@ -32,7 +32,7 @@ const OrdersItem: FC<TOrderItem> = ({item}) =>  {
         <p className={`text text_type_main-medium mb-6 ${styles.title}`}>{name}</p>
         <div className={`${styles.box}`}>
           <div className={`${styles.items_list}`}>
-            {orderIng.map((ingr:any) => (
+            {orderIng.map((ingr: TIngredients) => (
               <OrdersItemIcon key={ingr._id} ingr={ingr} />
             ))}
           </div>

@@ -6,7 +6,8 @@ import { useAppSelector } from '../../../utils/hooks';
 
 const IngredientDetails: FC = () => {
   const { id } = useParams();
-  const ingrInfo = useAppSelector((state: any) => state.ingredients.ingredients.find((item: TIngredients) => item._id === id));
+  const { ingredients } = useAppSelector((store) => store.ingredients); 
+  const ingrInfo = ingredients.find((item: TIngredients) => item._id === id);
 
   if (!ingrInfo) {
     return null;
