@@ -43,6 +43,7 @@ export const socketMiddleware = (wsAction: TwsActionTypes): Middleware<{}, RootS
       socket.onmessage = event => {
         const { data } = event;
         const parsedData = JSON.parse(data);
+        //console.log(wsUrl, parsedData)
         dispatch(onMessage(parsedData));
       };
 

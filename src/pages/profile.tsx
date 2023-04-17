@@ -15,7 +15,6 @@ function Profile() {
   const storeName = useAppSelector((state) => state.auth.userName);
   const storeEmail = useAppSelector((state) => state.auth.email);
   const { orders } = useAppSelector((store) => store.orders);
-
   const [name, setName] = useState(storeName);
   const [email, setEmail] = useState(storeEmail);
   const [pass, setPass] = useState("");
@@ -52,7 +51,8 @@ function Profile() {
   useEffect(() => {
     dispatch(fetchGetUser());
     if (accessToken) {
-      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${accessToken}`));
+      let token = accessToken.split(" ");
+      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${token[1]}`));
     }
   }, [dispatch, accessToken]);
 

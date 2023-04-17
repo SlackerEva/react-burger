@@ -47,7 +47,6 @@ const refreshExpiredToken = async (res: any) => {
     if (body.message === 'jwt expired') {
       const {refreshToken, accessToken} = await getToken();
       saveTokens(refreshToken, accessToken);  
-      console.log(refreshToken, accessToken);
       return await getUserData();
     }
     Promise.reject(`Forbidden: ${res}`)
@@ -58,7 +57,6 @@ const refreshExpiredToken = async (res: any) => {
 
 export const getUser = async () => {
   const res = await getUserData(refreshExpiredToken);
-  console.log(res);
   return res;
 }
 

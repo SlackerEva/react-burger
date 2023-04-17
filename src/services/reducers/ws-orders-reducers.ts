@@ -24,6 +24,7 @@ export const wsOrderSlice= createReducer(initialState, (builder) => {
       state.status = WebSocketStatus.CONNECTING;
     })
     .addCase(onOpen, (state) => {
+ //     console.log('Profile connect open');
       state.status = WebSocketStatus.ONLINE;
       state.connectionError = '';
     })
