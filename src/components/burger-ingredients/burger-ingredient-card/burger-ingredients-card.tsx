@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
 import { FC } from 'react';
-import { TIngredients, TIngrData } from '../../../types/types';
+import { TIngredients } from '../../../types/types';
 
 type TBICardProps = {
   card: TIngredients;
@@ -15,7 +15,7 @@ const BurgerIngredientCard: FC<TBICardProps>  = (props) => {
   const { _id, name, price, image } = props.card;
   const location = useLocation();
   const ingredients = useAppSelector((state) => state.ingredients.ingrData);
-  const countIngr = ingredients.reduce((acc: number, item: TIngrData) => {return item.item._id === _id ? acc + 1 : acc}, 0);
+  const countIngr = ingredients.reduce((acc, item) => {return item.item._id === _id ? acc + 1 : acc}, 0);
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...props.card },

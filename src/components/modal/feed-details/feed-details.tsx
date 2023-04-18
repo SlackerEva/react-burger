@@ -3,29 +3,21 @@ import styles from './feed-details.module.css';
 import OrderItemIcon from '../../orders/orders-item/orders-item-icon/orders-item-icon';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useParams } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from '../../../utils/hooks';
-import { TOrderData } from '../../../types/types';
-import { connect } from '../../../services/actions/ws-orders-action';
-import { useEffect } from 'react';
+import { useAppSelector } from '../../../utils/hooks';
 
 function FeedDetails() {
   const { id } = useParams();
-  const dispatch = useAppDispatch();
   const storeIngr = useAppSelector((state) => state.ingredients.ingredients);
-  const orderInfo = useAppSelector((state: any) => state.orders.orders.find((item: TOrderData) => item._id === id));
-  const orderIng = storeIngr.filter((item: any) => {
+  const orderInfo = useAppSelector((state) => state.orders.orders.find((item) => item._id === id));
+  const orderIng = storeIngr.filter((item) => {
     return orderInfo?.ingredients.includes(item._id);
   });
-  const bun: any = orderIng?.find((obj: any) => obj.type === 'bun');
-  const price = orderIng.reduce((acc: number, item: any) => acc + item.price, bun?.price ?? 0);
+  const bun: any = orderIng?.find((obj) => obj.type === 'bun');
+  const price = orderIng.reduce((acc, item) => acc + item.price, bun?.price ?? 0);
   const count = (item: any) => {
-    let countNum = orderInfo.ingredients.reduce((acc: number, itemIng: string) => item._id === itemIng ? acc += 1 : acc, 0);
+    let countNum = orderInfo?.ingredients.reduce((acc, itemIng) => item._id === itemIng ? acc += 1 : acc, 0);
     return countNum;
   }
-
-  useEffect(() => {
-    dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
-  }, [dispatch]);
 
   if (!orderInfo) return <></>;
 
@@ -34,10 +26,10 @@ function FeedDetails() {
       <div className={styles.container}>
         <p className={`text text_type_digits-default pb-10 ${styles.number}`}>#{orderInfo.number}</p>
         <p className={`text text_type_main-medium pb-3 ${styles.p}`}>{orderInfo.name}</p>
-        <p style={{color: '#00CCCC'}} className={`text text_type_main-small pb-15`}>{orderInfo.status}</p>
+        <p className={`text text_type_main-small pb-15 ${styles.status}`}>{orderInfo.status}</p>
         <p className={`text text_type_main-medium pb-6`}>Состав:</p>
         <div className={`mb-10 ${styles.scroll}`}>
-          {orderIng.map((item: any) => (
+          {orderIng.map((item) => (
             <div className={`pb-4 ${styles.row}`} key={item._id}>
               <OrderItemIcon ingr={item} />
               <p className={`text text_type_main-medium mr-4 ml-4 ${styles.name}`}>{item.name}</p>
@@ -49,10 +41,10 @@ function FeedDetails() {
           ))}
         </div>
         <div className={`pb-10 ${styles.bottom}`}>
-            <p style={{color: '#8585AD'}} className={`text text_type_main-default`}>
+            <p className={`text text_type_main-default ${styles.data}`}>
               <FormattedDate date={new Date(orderInfo.createdAt)} />
             </p>
-            <div style={{display: 'flex'}}>
+            <div className={`${styles.priceBox}`}>
               <p className={`text text_type_digits-default pr-2`}>{price}</p>
               <CurrencyIcon type="primary" />
             </div>

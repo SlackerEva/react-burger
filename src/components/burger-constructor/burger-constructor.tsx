@@ -7,7 +7,7 @@ import OrderDetails from '../modal/order-details/order-details';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { useDrop } from 'react-dnd';
 import uuid from 'react-uuid';
-import { fetchOrderNumber } from '../../services/actions/actions';
+//import { fetchOrderNumber } from '../../services/actions/actions';
 import { fetchOrder } from '../../services/actions/actions';
 import { addIngredientData, updateIngredientData, removeAllIngredientData } from '../../services/reducers/reducers';
 import { clearOrder } from '../../services/reducers/ordersSlice';
@@ -22,10 +22,10 @@ function BurgerConstructor() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { ingrData } = useAppSelector((store) => store.ingredients); 
-  const ingrArr = ingrData?.filter((obj: TIngrData) => obj.item.type !== 'bun') ?? [];
-  const bun: any = ingrData?.find((obj: TIngrData) => obj.item.type === 'bun');
+  const ingrArr = ingrData?.filter((obj) => obj.item.type !== 'bun') ?? [];
+  const bun: any = ingrData?.find((obj) => obj.item.type === 'bun');
   const allIngrArr = [...ingrData, bun];
-  const finalPrice = ingrArr?.reduce((acc: number , item: TIngrData ) => acc + item.item.price, bun?.item.price*2 ?? 0);
+  const finalPrice = ingrArr?.reduce((acc, item ) => acc + item.item.price, bun?.item.price*2 ?? 0);
 
   const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     const dragCard = ingrData[dragIndex];
@@ -46,7 +46,7 @@ function BurgerConstructor() {
   })
 
   function handleOrderNumber() {
-    let ing_Id: string[] = allIngrArr.map((obj: TIngrData) => obj.item._id);
+    let ing_Id: string[] = allIngrArr.map((obj) => obj.item._id);
     dispatch(clearOrder());
     dispatch(fetchOrder(ing_Id));
     dispatch(removeAllIngredientData());

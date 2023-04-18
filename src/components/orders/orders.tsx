@@ -1,9 +1,10 @@
 import styles from './orders.module.css';
 import OrdersItem from './orders-item/orders-item';
 import { useAppDispatch, useAppSelector } from '../../utils/hooks';
-import { connect } from '../../services/actions/ws-orders-action';
+import { connect, disconnect } from '../../services/actions/ws-orders-action';
 import { useEffect } from 'react';
 import {TOrderData} from '../../types/types';
+import { WSS_URL_ORDERS } from '../../utils/constans';
 
 function Orders() {
   const dispatch = useAppDispatch();
@@ -11,7 +12,10 @@ function Orders() {
   const allOrders = useAppSelector((state) => state.orders);
 
   useEffect(() => {
-    dispatch(connect("wss://norma.nomoreparties.space/orders/all"));
+    dispatch(connect(`${WSS_URL_ORDERS}/all`));
+    return () => {
+      dispatch(disconnect());
+    };
   }, [dispatch]);
 
   let statusDone: TOrderData[] | [] = [];
@@ -44,7 +48,7 @@ function Orders() {
               <p className={`text text_type_main-medium pb-6 ${styles.p}`}>Готовы:</p>
               <div className={`${styles.ul}`}>
                 {statusDone.map((item) => (
-                  <p style={{color: '#00CCCC'}} key={item.number} className={`text text_type_main-medium pb-2 ${styles.li}`}>{item.number}</p>
+                  <p key={item.number} className={`text text_type_main-medium pb-2 ${styles.li_color} ${styles.li}`}>{item.number}</p>
                 ))}
               </div>
             </div>

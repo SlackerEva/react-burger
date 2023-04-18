@@ -1,13 +1,12 @@
 import styles from './ingredient-details.module.css';
 import { useParams } from 'react-router-dom';
 import { FC } from 'react';
-import { TIngredients } from '../../../types/types';
 import { useAppSelector } from '../../../utils/hooks';
 
 const IngredientDetails: FC = () => {
   const { id } = useParams();
   const { ingredients } = useAppSelector((store) => store.ingredients); 
-  const ingrInfo = ingredients.find((item: TIngredients) => item._id === id);
+  const ingrInfo = ingredients.find((item) => item._id === id);
 
   if (!ingrInfo) {
     return null;

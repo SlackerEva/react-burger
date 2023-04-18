@@ -51,6 +51,10 @@
   text-align: left; 
 }
 
+.li_color {
+  color: #00CCCC;
+}
+
 .ul {
   display: flex;
   flex-direction: column;

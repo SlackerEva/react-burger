@@ -31,7 +31,6 @@ export const socketMiddleware = (wsAction: TwsActionTypes): Middleware<{}, RootS
     }
 
     if (socket) {
-      
       socket.onopen = () => {
         dispatch(onOpen());
       };

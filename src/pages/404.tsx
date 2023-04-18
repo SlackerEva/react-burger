@@ -1,6 +1,8 @@
+import styles from './404.module.css';
+
 function NotFound() {
   return (
-    <h1 style={{textAlign: 'center'}} className="text text_type_main-large">Ничего не найдено</h1>
+    <h1 className={`text text_type_main-large ${styles.title}`}>Ничего не найдено</h1>
   );
 }
 

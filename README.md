@@ -4,6 +4,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## ENV KEY for review
 REACT_APP_BASE_URL = "https://norma.nomoreparties.space/api"
+REACT_APP_WSS_URL = "wss://norma.nomoreparties.space/orders"
 
 ## Available Scripts
 

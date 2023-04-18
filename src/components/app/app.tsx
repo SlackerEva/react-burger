@@ -45,6 +45,7 @@ function App() {
         <Route path="/reset-password" element={<ProtectedRouteElement anonymous element={<ResetPass />}/>} />
         <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
         <Route path="/profile/orders" element={<ProtectedRouteElement element={<Profile />}/>} />
+        <Route path="/profile/orders/:id" element={<FeedDetails />} />
         <Route path="/feed" element={<Orders />} />
         <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/*" element={<NotFound />} />
@@ -64,6 +65,14 @@ function App() {
             path="/feed/:id"
             element={
               <Modal onClose={() => handleModal('/feed')}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={() => handleModal('/profile/orders')}>
                 <FeedDetails />
               </Modal>
             }

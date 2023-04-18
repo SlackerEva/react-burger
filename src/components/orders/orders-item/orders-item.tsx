@@ -4,7 +4,7 @@ import { FC } from 'react';
 import { useLocation, Link } from "react-router-dom";
 import { useAppSelector } from '../../../utils/hooks';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { TOrderData, TIngredients } from '../../../types/types';
+import { TOrderData } from '../../../types/types';
 
 type TOrderItem = {
   item: TOrderData;
@@ -14,14 +14,14 @@ const OrdersItem: FC<TOrderItem> = ({item}) =>  {
   const location = useLocation();
   const { _id, number, name, createdAt, ingredients } = item;
   const storeIngr = useAppSelector((state) => state.ingredients.ingredients);
-  const orderIng = storeIngr.filter((item: TIngredients) => {
+  const orderIng = storeIngr.filter((item) => {
     return ingredients.includes(item._id);
   });
-  const bun: any = orderIng?.find((obj: TIngredients) => obj.type === 'bun');
-  const price = orderIng.reduce((acc: number, item: TIngredients) => acc + item.price, bun?.price ?? 0);
+  const bun: any = orderIng?.find((obj) => obj.type === 'bun');
+  const price = orderIng.reduce((acc, item) => acc + item.price, bun?.price ?? 0);
 
   return (
-    <Link key={_id} to={{pathname: `/feed/${_id}`}} state={{ background : location }} className={`${styles.link}`}>
+    <Link key={_id} to={{pathname: `${location.pathname}/${_id}`}} state={{ background : location }} className={`${styles.link}`}>
       <div className={`p-6 mb-4 ${styles.container}`}>
         <div className={`text text_type_digits-default mb-6 ${styles.number}`}>
           <p className={`text text_type_main-medium ${styles.p}`}>#{number}</p>
@@ -32,7 +32,7 @@ const OrdersItem: FC<TOrderItem> = ({item}) =>  {
         <p className={`text text_type_main-medium mb-6 ${styles.title}`}>{name}</p>
         <div className={`${styles.box}`}>
           <div className={`${styles.items_list}`}>
-            {orderIng.map((ingr: TIngredients) => (
+            {orderIng.map((ingr) => (
               <OrdersItemIcon key={ingr._id} ingr={ingr} />
             ))}
           </div>

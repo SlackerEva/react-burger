@@ -5,10 +5,10 @@ import { fetchGetUser, fetchChangeUserData } from "../services/actions/authActio
 import { logout } from '../services/reducers/authSlice';
 import { Link, useLocation } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from "../utils/hooks";
-import { TOrderData } from "../types/types";
 import OrdersItem from "../components/orders/orders-item/orders-item";
 import { getCookie } from "../utils/cookie";
-import { connect } from '../services/actions/ws-orders-action';
+import { connect, disconnect } from '../services/actions/ws-orders-action';
+import { WSS_URL_ORDERS } from "../utils/constans";
 
 function Profile() {
   const dispatch = useAppDispatch();
@@ -52,8 +52,11 @@ function Profile() {
     dispatch(fetchGetUser());
     if (accessToken) {
       let token = accessToken.split(" ");
-      dispatch(connect(`wss://norma.nomoreparties.space/orders?token=${token[1]}`));
+      dispatch(connect(`${WSS_URL_ORDERS}?token=${token[1]}`));
     }
+    return () => {
+      dispatch(disconnect());
+    };
   }, [dispatch, accessToken]);
 
   const activeProfile = location.pathname === "/profile" ? 'white' : '#8585AD';
@@ -71,7 +74,7 @@ function Profile() {
       (<section className={styles.section}>
         {
           (<div className={styles.scroll}>
-            {orders?.map((item: TOrderData) => (
+            {orders?.map((item) => (
               <OrdersItem key={item._id} item={item}/>
             ))}
           </div>)
