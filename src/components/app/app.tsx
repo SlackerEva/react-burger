@@ -20,6 +20,7 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const background = location.state && location.state.background;
+  console.log(location);
 
   useEffect (() => {
     dispatch(fetchIngredients());
@@ -45,7 +46,7 @@ function App() {
         <Route path="/reset-password" element={<ProtectedRouteElement anonymous element={<ResetPass />}/>} />
         <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
         <Route path="/profile/orders" element={<ProtectedRouteElement element={<Profile />}/>} />
-        <Route path="/profile/orders/:id" element={<FeedDetails />} />
+        <Route path="/profile/orders/:id" element={<ProtectedRouteElement back={background} element={<FeedDetails />}/>} />
         <Route path="/feed" element={<Orders />} />
         <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/*" element={<NotFound />} />

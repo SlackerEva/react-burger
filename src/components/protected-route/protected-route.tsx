@@ -3,14 +3,19 @@ import { useAppSelector } from "../../utils/hooks";
 import { FC } from 'react';
 
 type TPRElement = {
+  back?: any;
   element: JSX.Element;
   anonymous?: boolean;
 }
 
-const ProtectedRouteElement: FC<TPRElement> = ({ element, anonymous = false }) => {
+const ProtectedRouteElement: FC<TPRElement> = ({ back, element, anonymous = false }) => {
+  //console.log('Background route ' + background);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
   const from = location.state?.from || '/';
+  console.log(back);
+
+  if(back && !isLoggedIn) { return null; }
 
   if (anonymous && isLoggedIn) {
     return <Navigate to={from} state={{from: location}} replace />

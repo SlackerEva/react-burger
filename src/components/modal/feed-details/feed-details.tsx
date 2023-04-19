@@ -2,11 +2,19 @@
 import styles from './feed-details.module.css';
 import OrderItemIcon from '../../orders/orders-item/orders-item-icon/orders-item-icon';
 import { CurrencyIcon, FormattedDate } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../../utils/hooks';
+import { useEffect } from 'react';
+import { useAppDispatch } from '../../../utils/hooks';
+import { connect, disconnect } from '../../../services/actions/ws-orders-action';
+import { WSS_URL_ORDERS } from '../../../utils/constans';
+import { getCookie } from '../../../utils/cookie';
 
 function FeedDetails() {
   const { id } = useParams();
+  const dispatch = useAppDispatch();
+  const location = useLocation();
+  const accessToken = getCookie("token");
   const storeIngr = useAppSelector((state) => state.ingredients.ingredients);
   const orderInfo = useAppSelector((state) => state.orders.orders.find((item) => item._id === id));
   const orderIng = storeIngr.filter((item) => {
@@ -19,7 +27,18 @@ function FeedDetails() {
     return countNum;
   }
 
-  if (!orderInfo) return <></>;
+  useEffect(() => {
+    if (location.pathname === '/profile/orders' || location.pathname === `/profile/orders/${id}`) {
+      let token = accessToken?.split(" ") ?? '';
+      dispatch(connect(`${WSS_URL_ORDERS}?token=${token[1]}`));
+    } else {
+      dispatch(connect(`${WSS_URL_ORDERS}/all`));
+    }
+   },[dispatch, accessToken, id, location.pathname]);
+
+  if (!orderInfo) {
+    return null;
+  }
 
   return (
     <section className={styles.section}>
