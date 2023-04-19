@@ -9,11 +9,9 @@ type TPRElement = {
 }
 
 const ProtectedRouteElement: FC<TPRElement> = ({ back, element, anonymous = false }) => {
-  //console.log('Background route ' + background);
   const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
   const from = location.state?.from || '/';
-  console.log(back);
 
   if(back && !isLoggedIn) { return null; }
 

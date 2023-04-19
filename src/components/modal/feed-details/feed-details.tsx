@@ -6,7 +6,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useAppSelector } from '../../../utils/hooks';
 import { useEffect } from 'react';
 import { useAppDispatch } from '../../../utils/hooks';
-import { connect, disconnect } from '../../../services/actions/ws-orders-action';
+import { connect } from '../../../services/actions/ws-orders-action';
 import { WSS_URL_ORDERS } from '../../../utils/constans';
 import { getCookie } from '../../../utils/cookie';
 
