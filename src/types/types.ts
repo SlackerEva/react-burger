@@ -36,13 +36,14 @@ export type TOrderData = {
   ingredients: string[];
   status: string;
   name: string;
-  createdAt: Date;
+  createdAt: string;
   updatedAt: string;
   number: number
 };
 
 export type TOrderFeed = {
-  success: boolean;
+  status: WebSocketStatus;
+  connectionError: string;
   orders: TOrderData[];
   total: number;
   totalToday: number

@@ -1,18 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import  { fetchIngredients, fetchOrderNumber } from '../actions/actions';
+import  { fetchIngredients } from '../actions/actions';
 import { TIngrData, TIngredients } from '../../types/types';
 
 interface IIngredientState {
   ingredients: TIngredients[],
   ingrData: TIngrData[],
-  orderNumber: number,
   isModalOpen: boolean,
 }
 
-const initialState: IIngredientState = {
+export const initialState: IIngredientState = {
   ingredients: [],
   ingrData: [],
-  orderNumber: 0,
   isModalOpen: false,
 }
 
@@ -48,10 +46,6 @@ export const ingredientsSlice = createSlice({
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.ingredients = action.payload.data;
         })
-    builder
-      .addCase(fetchOrderNumber.fulfilled, (state, action) => {
-        state.orderNumber = action.payload.order.number;
-      })
   },
 })
 

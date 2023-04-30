@@ -1,21 +1,13 @@
 import { createReducer } from "@reduxjs/toolkit"
-import { TOrderData, WebSocketStatus } from "../../types/types";
-import { wsConnecting, wsError, onMessage, onOpen, onClose } from "../actions/ws-orders-action"
+import { WebSocketStatus, TOrderFeed } from "../../types/types";
+import { wsConnecting, wsError, onMessage, onOpen, onClose } from "../actions/ws-orders-action";
 
-export type orderFeedStore = {
-  status: WebSocketStatus;
-  connectionError: string;
-  orders: TOrderData[];
-  ordersTotal: number;
-  ordersTotalToday: number;
-}
-
-const initialState: orderFeedStore = {
+export const initialState: TOrderFeed = {
   status: WebSocketStatus.OFFLINE,
   connectionError: '',
   orders: [],
-  ordersTotal: 0,
-  ordersTotalToday: 0
+  total: 0,
+  totalToday: 0
 }
 
 export const wsOrderSlice= createReducer(initialState, (builder) => {
@@ -30,17 +22,17 @@ export const wsOrderSlice= createReducer(initialState, (builder) => {
     })
     .addCase(wsError, (state, action) => {
       state.status = WebSocketStatus.ERROR;
-      state.connectionError = action.payload;
+      state.connectionError = 'error';
     })
     .addCase(onMessage, (state, action) => {
       state.orders = action.payload.orders;
-      state.ordersTotal = action.payload.total;
-      state.ordersTotalToday = action.payload.totalToday;
+      state.total = action.payload.total;
+      state.totalToday = action.payload.totalToday;
     })
     .addCase(onClose, (state, action) => {
       state.status = WebSocketStatus.OFFLINE;
       state.orders = [];
-      state.ordersTotal = 0;
-      state.ordersTotalToday = 0;
+      state.total = 0;
+      state.totalToday = 0;
     })
 })
