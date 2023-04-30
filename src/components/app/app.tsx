@@ -12,6 +12,8 @@ import Modal from '../modal/modal';
 import { useLocation, useNavigate } from "react-router-dom";
 import { getCookie } from '../../utils/cookie';
 import { fetchGetUser } from '../../services/actions/authActions';
+import Orders from '../orders/orders';
+import FeedDetails from '../modal/feed-details/feed-details';
 
 function App() {
   const dispatch = useAppDispatch();
@@ -26,9 +28,9 @@ function App() {
     }
   }, [dispatch]);
 
-  const handleModal = () => {
+  const handleModal = (path: string) => {
     dispatch(handleModalClose());
-    navigate("/");
+    navigate(path ?? '/');
   }  
 
   return (
@@ -42,6 +44,10 @@ function App() {
         <Route path="/forgot-password" element={<ProtectedRouteElement anonymous element={<ForgotPass />}/>} />
         <Route path="/reset-password" element={<ProtectedRouteElement anonymous element={<ResetPass />}/>} />
         <Route path="/profile" element={<ProtectedRouteElement element={<Profile />}/>} />
+        <Route path="/profile/orders" element={<ProtectedRouteElement back={background} element={<Profile />}/>} />
+        <Route path="/profile/orders/:id" element={<ProtectedRouteElement  element={<FeedDetails />}/>} />
+        <Route path="/feed" element={<Orders />} />
+        <Route path="/feed/:id" element={<FeedDetails />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
       
@@ -50,8 +56,24 @@ function App() {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal onClose={handleModal}>
+              <Modal onClose={() => handleModal('/')}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+            element={
+              <Modal onClose={() => handleModal('/feed')}>
+                <FeedDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:id"
+            element={
+              <Modal onClose={() => handleModal('/profile/orders')}>
+                <FeedDetails />
               </Modal>
             }
           />

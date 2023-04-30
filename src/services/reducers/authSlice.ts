@@ -33,9 +33,9 @@ export const authSlice = createSlice({
         setCookie('token', action.payload.accessToken);
         localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
-      .addCase(fetchRegister.rejected, (action) => {
-        console.log(action.message);
-      })
+      // .addCase(fetchRegister.rejected, (action) => {
+      //   console.log(action.message);
+      // })
 
     builder
       .addCase(fetchLogin.fulfilled, (state, action) => {
@@ -45,9 +45,9 @@ export const authSlice = createSlice({
         setCookie('token', action.payload.accessToken);
         localStorage.setItem('refreshToken', action.payload.refreshToken);
       })
-      .addCase(fetchLogin.rejected, (action) => {
-        console.log(action.message);
-      })
+      // .addCase(fetchLogin.rejected, (action) => {
+      //   console.log(action.message);
+      // })
 
     builder
       .addCase(fetchGetUser.fulfilled, (state, action) => {

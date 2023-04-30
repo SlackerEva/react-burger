@@ -1,13 +1,26 @@
 import { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers/reducers';
-import authSlice from './reducers/authSlice';
+import { socketMiddleware } from './middleware/socketMiddleware';
+import { connect, disconnect, wsConnecting, onOpen, onClose, onMessage, wsError } from './actions/ws-orders-action';
+import { rootReducer } from './reducers/index';
+
+const wsActions = {
+  connect: connect,
+  disconnect: disconnect,
+  wsConnecting: wsConnecting,
+  wsError: wsError,
+  onOpen: onOpen,
+  onClose: onClose,
+  onMessage: onMessage,
+};
+
+const webSocketMiddleware = socketMiddleware(wsActions)
 
 export const store = configureStore({
-  reducer: {
-    ingredients: rootReducer,
-    auth: authSlice,
-  },
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(webSocketMiddleware)
+  }
 });
 
-export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof rootReducer>
 export type AppDispatch = typeof store.dispatch;

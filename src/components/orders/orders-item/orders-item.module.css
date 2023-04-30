@@ -1,0 +1,39 @@
+.number {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container {
+  background: #1C1C21;
+  border-radius: 40px;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+}
+
+.title {
+  text-align: left;
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.items_list {
+  display: flex;
+  width: fit-content;
+  color: white;
+}
+
+.p {
+  margin: 0;
+}
+
+.link {
+  color: white;
+  text-decoration: none;
+}

@@ -1,14 +1,15 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
 import style from './burger-constructor-item.module.css';
-import { removeIngredientData } from '../../../services/reducers/reducers.js';
+import { removeIngredientData } from '../../../services/reducers/reducers';
 import { useAppDispatch } from '../../../utils/hooks';
 import { useRef } from 'react';
 import {DropTargetMonitor, useDrop, useDrag } from 'react-dnd';
+import { TIngrData } from '../../../types/types';
 
 type TBCItemProps = {
   index: number;
-  item: any;
+  item: TIngrData;
   moveCard: any;
 }
 
