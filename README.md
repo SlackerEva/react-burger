@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## github page https://slackereva.github.io/react-burger/index.html
+
 ## ENV KEY for review
 REACT_APP_BASE_URL = "https://norma.nomoreparties.space/api"
 REACT_APP_WSS_URL = "wss://norma.nomoreparties.space/orders"
