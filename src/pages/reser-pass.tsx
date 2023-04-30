@@ -2,13 +2,13 @@ import { Button, Input, PasswordInput } from "@ya.praktikum/react-developer-burg
 import { useState } from 'react';
 import styles from './login.module.css';
 import { Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from "../utils/hooks";
 import { fetchResetPass } from "../services/actions/authActions";
 import { useLocation, Navigate } from "react-router-dom";
 
 
 function ResetPass() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const from = location.state?.from || "/";
   const [pass, setPass] = useState('');
@@ -20,15 +20,15 @@ function ResetPass() {
     );
   }
 
-  const onChangePass = e => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPass(e.target.value)
   }
 
-  const onChangeToken = e => {
+  const onChangeToken = (e: React.ChangeEvent<HTMLInputElement>) => {
     setToken(e.target.value)
   }
 
-  const reset = (event) => {
+  const reset = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(fetchResetPass({
       "password": pass,

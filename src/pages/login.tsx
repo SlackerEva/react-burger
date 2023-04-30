@@ -2,29 +2,29 @@ import { Button, PasswordInput, Input } from "@ya.praktikum/react-developer-burg
 import { useState } from 'react';
 import styles from './login.module.css';
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux';
 import { fetchLogin } from "../services/actions/authActions";
+import { useAppSelector, useAppDispatch } from "../utils/hooks";
 
 function Login() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
   const from = location?.state?.from || "/";
 
-  const onChangeEmail = e => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
-  const onChangePass = e => {
+  const onChangePass = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
   }
 
-  const login = (event) => {
+  const login = (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(fetchLogin({
-      "email": email, 
-      "password": password
+      email: email,
+      password: password,
     }));
   }
 

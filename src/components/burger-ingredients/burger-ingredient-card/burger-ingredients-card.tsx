@@ -1,16 +1,21 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import dataPropTypes from '../../../utils/prop-types.js';
 import styles from './burger-ingredients-card.module.css';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../../utils/hooks';
 import { useDrag } from 'react-dnd';
 import { useLocation } from "react-router-dom";
 import { Link } from 'react-router-dom';
+import { FC } from 'react';
+import { TIngredients } from '../../../types/types';
 
-function BurgerIngredientCard(props) {
+type TBICardProps = {
+  card: TIngredients;
+}
+
+const BurgerIngredientCard: FC<TBICardProps>  = (props) => {
   const { _id, name, price, image } = props.card;
   const location = useLocation();
-  const ingredients = useSelector((state) => state.ingredients.ingrData);
-  const countIngr = ingredients.reduce((acc, item) => {return item.item._id === _id ? acc + 1 : acc}, 0);
+  const ingredients = useAppSelector((state) => state.ingredients.ingrData);
+  const countIngr = ingredients.reduce((acc, item: any) => {return item.item._id === _id ? acc + 1 : acc}, 0);
   const [{ opacity }, dragRef] = useDrag({
     type: 'ingredient',
     item: { ...props.card },
@@ -34,10 +39,6 @@ function BurgerIngredientCard(props) {
     </li>
     </Link>
   );
-}
-
-BurgerIngredientCard.propTypes = {
-  card: dataPropTypes.isRequired
 }
 
 export default BurgerIngredientCard;

@@ -1,25 +1,25 @@
 import { PasswordInput, Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import styles from './profile.module.css';
 import { fetchGetUser, fetchChangeUserData } from "../services/actions/authActions";
 import { logout } from '../services/reducers/authSlice.js';
 import { Link } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from "../utils/hooks";
 
 function Profile() {
   
-  const dispatch = useDispatch();
-  const storeName = useSelector((state) => state.auth.userName);
-  const storeEmail = useSelector((state) => state.auth.email);
+  const dispatch = useAppDispatch();
+  const storeName = useAppSelector((state) => state.auth.userName);
+  const storeEmail = useAppSelector((state) => state.auth.email);
   const [name, setName] = useState(storeName);
   const [email, setEmail] = useState(storeEmail);
   const [pass, setPass] = useState("");
 
-  const onChangeName = e => {
+  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
   }
 
-  const onChangeEmail = e => {
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
 
@@ -27,7 +27,7 @@ function Profile() {
     dispatch(logout());
   }
 
-  const handleSave= (event) => {
+  const handleSave= (event: React.FormEvent) => {
     event.preventDefault();
     dispatch(fetchChangeUserData({
       "name": name,

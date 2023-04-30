@@ -1,8 +1,8 @@
 import CheckMarkIcon from '../../../images/done.svg';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '../../../utils/hooks';
 
 function OrderDetails() {
-  const orderNumber = useSelector((state) => state.ingredients.orderNumber);
+  const orderNumber = useAppSelector((state) => state.ingredients.orderNumber);
 
   return (
     <>

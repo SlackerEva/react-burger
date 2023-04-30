@@ -5,7 +5,7 @@ import BurgerIngredients from '../components/burger-ingredients/burger-ingredien
 import BurgerConstructor from '../components/burger-constructor/burger-constructor';
 
 
-export function HomePage() {
+const HomePage = () => {
   return (
     <main className={styles.main}>
       <DndProvider backend={HTML5Backend}>
@@ -15,3 +15,5 @@ export function HomePage() {
     </main>
   );
 }
+
+export default HomePage;
