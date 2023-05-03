@@ -5,7 +5,7 @@
 Приложение разработано в рамказ обчуения в Яндекс Практикуме.
 
 ## Ссылки на проект
-Ссылки пока нет, есть проблемы, решаем с куратором что делать.
+GitHub Pages: https://slackereva.github.io/react-burger/
 
 ## Стэк
 HTML/CSS, JavaScript, React, Redux, Redux Toolkit, TypeScript

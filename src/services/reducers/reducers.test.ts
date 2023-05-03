@@ -2,6 +2,8 @@ import { initialState, addIngredientData, removeIngredientData, removeAllIngredi
 import ingredientsSlice  from "./reducers";
 import { fetchIngredients } from "../actions/actions";
 
+const id = 'bdb02271-da41-b72e-c877-4952beed7fa2';
+
 const ingredientData = [{
   "_id": "60666c42cc7b410027a1a9b1",
   "name": "Краторная булка N-200i",
@@ -33,7 +35,7 @@ const ingredientDataObj = {
 };
 
 const ingrDataState = [{
-  dragId: 'bdb02271-da41-b72e-c877-4952beed7fa2',
+  dragId: id,
   item: ingredientDataObj,
 }];
 
@@ -46,7 +48,7 @@ describe("ingredient slice", () => {
     const action = {
       type: addIngredientData,
       payload: {
-        dragId: 'bdb02271-da41-b72e-c877-4952beed7fa2',
+        dragId: id,
         item: ingredientDataObj,
       },
     };
@@ -74,8 +76,8 @@ describe("ingredient slice", () => {
       payload: ingrDataState,
     };
     const arrIngr = [
-      {dragId: 'bdb02271-da41-b72e-c877-4952beed7fa2', item: ingredientDataObj},
-      {dragId: 'bdb02271-da41-b72e-c877-4952beed7fa2', item: ingredientDataObj}
+      {dragId: id, item: ingredientDataObj},
+      {dragId: id, item: ingredientDataObj}
     ];
     const expectedState = { ingredients: [], ingrData: arrIngr, isModalOpen: false };
     expect(ingredientsSlice(initialState, action)).toEqual(expectedState);
