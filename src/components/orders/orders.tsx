@@ -63,11 +63,11 @@ function Orders() {
           </div>
           <div>
             <p className={`text text_type_main-medium ${styles.paragraph}`}>Выполнено за все время:</p>
-            <p className={`text text_type_digits-large pb-6 ${styles.paragraph}`}>{allOrders.ordersTotal}</p>
+            <p className={`text text_type_digits-large pb-6 ${styles.paragraph}`}>{allOrders.total}</p>
           </div>
           <div>
             <p className={`text text_type_main-medium ${styles.paragraph}`}>Выполнено за сегодня:</p>
-            <p className={`text text_type_digits-large ${styles.paragraph}`}>{allOrders.ordersTotalToday}</p>
+            <p className={`text text_type_digits-large ${styles.paragraph}`}>{allOrders.totalToday}</p>
           </div>
         </section>
       </main>

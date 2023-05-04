@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { setCookie, removeCookie } from '../../utils/cookie';
 import  { fetchForgotPass, fetchRegister, fetchLogin, fetchGetUser, fetchChangeUserData, fetchResetPass } from '../actions/authActions';
 
-const initialState = {
+export const initialState = {
   isLoggedIn: false,
   userName: '',
   email: '',
-  refreshToken: '',
+//  refreshToken: '',
   resetPass: false,
 }
 
@@ -71,8 +71,6 @@ export const authSlice = createSlice({
       .addCase(fetchResetPass.fulfilled, (state, action) => {      
         state.resetPass = false;
       })
-
-
   },
 })
 

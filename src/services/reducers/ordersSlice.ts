@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { fetchOrder } from '../actions/actions';
 
-const initialState = {
+export const initialState = {
   orderNum: null,
   status: '',
 }
@@ -19,7 +19,7 @@ export const ordersSlice = createSlice({
     builder
       .addCase(fetchOrder.fulfilled, (state, action) => {
         state.orderNum = action.payload.order.number;
-        console.log(action.payload.order.number);
+        //console.log(action.payload.order.number);
         state.status = "success";
       })
   },

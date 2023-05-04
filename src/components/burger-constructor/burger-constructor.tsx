@@ -58,7 +58,7 @@ function BurgerConstructor() {
   }
 
   return (
-    <section className={`styles.section ${isHover ? styles.onHover : ''}`} ref={dropTargerRef} >
+    <section className={`${styles.section} ${isHover ? styles.onHover : ''}`} ref={dropTargerRef} >
       <div className={`mt-15 ml-4 ${styles.container}`}>
         {ingrData.length === 0  ? <p className="text text_type_main-medium">Выберите булку для бургера</p> :
           <>
